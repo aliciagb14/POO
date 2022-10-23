@@ -8,4 +8,7 @@ public class Turn {
         this.players = new Player[Turn.NUMBER_PLAYERS];
     }
 
+    //asignacion de color en el main
+
+
 }

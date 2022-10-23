@@ -9,4 +9,7 @@ public interface Coordinate{
   boolean inVertical(Coordinate coordinate);
   boolean inMainDiagonal();
 
+  int getRow();
+
+  int getColumn();
 }

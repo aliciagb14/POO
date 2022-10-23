@@ -5,7 +5,6 @@ public enum Message {
     HORIZONTAL_LINE("-------------------------"),
     VERTICAL_LINE("|"),
     ENTER_COLUMN_TO_PUT("Enter a column to drop a token:"),
-    FAILED_NUMBER_COLUMN_INSERTION("Invalid column!!! Values [1-7"),
     TIED_MESSAGE("TIED!!"),
     PLAYER_WIN("#player player: You win!!! :-)"),
     CONTINUE_MESSAGE("Do you want to continue? (y/n):");

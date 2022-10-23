@@ -1,4 +1,7 @@
 import usantatecla.utils.*;
+
+import static java.lang.String.valueOf;
+
 /*
  * 21 fichas cada jugador
  * fichas RED, YELLOW
@@ -28,12 +31,15 @@ import usantatecla.utils.*;
 public class Board {
     private final int nRow = 6; //fila
     private final int nColumn = 7; //columna
+    private final int MAX_TOKEN = 42;
     private char board[][];
+    private String color;
 
     public Board() {
         this.board = new char[nRow][nColumn];
     }
 
+    //set Token tienen turn.changeTurn()
     public void initBoard() {
         for (int i = 0; i < nRow; i++) {
             for (int j = 0; j < nColumn; j++)
@@ -59,62 +65,28 @@ public class Board {
         return false;
     }
 
-    public int countHorizontal(char board[][]) {
-        int i = 0, j;
-        int numFichas = 0;
-        int fichasGanador = 4;
-        boolean encontrado = false;
-        for (j = 0; j < nColumn && !encontrado; j++) {
-            if (board[i][j] == board[i][j + 1]) {
-                encontrado = true;
-                numFichas++;
-                if (numFichas == fichasGanador)
-                    System.out.println("HA GANADO");
-            } else
-                i++;
+    //hueco libre en fila para saber donde meter la ficha
+    public int freeGap(int column){
+        int j = 1;
+        for (int i = nRow - j; j < nRow ; j++){
+            if (board[i][column] == ' ' && board[i - 1][column] != ' ')
+                return i;
         }
-        return numFichas;
+        return -1;
     }
 
-    public int countVertical(char board[][]) {
-        int i, j = 0;
-        int numFichas = 0;
-        int fichasGanador = 4;
-        boolean encontrado = false;
-        for (i = 0; i < nRow && !encontrado; i++) {
-            if (board[i][j] == board[i + 1][j]) {
-                encontrado = true;
-                numFichas++;
-                if (numFichas == fichasGanador)
-                    System.out.println("HA GANADO");
-            } else
-                j++;
-        }
-        return numFichas;
+    public void putToken(int column) {
+        do {
+            int freeRow = freeGap(column);
+            this.board[freeRow][column] = 'R'; //decidir si inserta r o y
+        }while(!fullBoard());
     }
 
-    public int contarDiagonal(char board[][]) {
-        int numFichasDiagonalPpal = 0;
-        int numFichasDiagonalSecund = 0;
-        int[] diagoPrincipal = new int[board.length];
-        int[] diagoSecundaria = new int[board.length];
-        int fichasGanador = 4;
-        boolean encontrado = false;
-        for (int i = 0; i < nRow; i++) {
-            for (int j = 0; j < nColumn; j++) {
-                if (i == j) {
-                    diagoPrincipal[i] = board[i][j];
-                    numFichasDiagonalPpal++;
-                }
-                if (i + j == board.length - 1) {
-                    diagoSecundaria[i] = board[i][j];
-                    numFichasDiagonalSecund++;
-                }
-            }
+    public boolean fullBoard(){
+        for (int j = 0; j < nColumn; j++){
+            if (board[nRow][j] == ' ')
+                return false;
         }
-        if (numFichasDiagonalPpal == 4)
-            return numFichasDiagonalPpal;
-        else
-            return numFichasDiagonalSecund;
+        return true;
     }
 }
