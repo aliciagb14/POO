@@ -7,23 +7,27 @@ public class Player {
     private Board board;
     static final int NUMBER_PLAYERS = 2;
     private Player[] players;
+    private final int MAX_TOKEN = 42;
+    private int countTokens;
 
     public Player(){}
 
     public Player(Color color, Board board){
         this.color = color;
         this.board = board;
+        this.countTokens = 0;
         this.players = new Player[NUMBER_PLAYERS];
     }
 
     public void putToken(int column){
         Error error;
+        assert(countTokens < MAX_TOKEN);
         do{
             error = this.getPutTokenError(column);
         }while(!error.isNull());
-        board.putToken(column);
+        board.putToken(this.color, column);
+        countTokens++;
     }
-
 
     public Error getPutTokenError(int column){
        Error error = null;
@@ -40,8 +44,8 @@ public class Player {
         return turn;
     }
 
-    public Color getColor(){
-        return this.color;
+    public Color getColor(Color color){
+        return color;
     }
 
 }

@@ -1,14 +1,24 @@
+import usantatecla.utils.*;
+
 public class Turn {
     private Board board;
-    static final int NUMBER_PLAYERS = 2;
-    private Player[] players;
+    private Color color;
+    /*static final int NUMBER_PLAYERS = 2;
+    private Player[] players;*/
 
-    public Turn(Board board){
+    public Turn(Board board, Color color){
         this.board = board;
-        this.players = new Player[Turn.NUMBER_PLAYERS];
+        this.color = color;
+       // this.players = new Player[Turn.NUMBER_PLAYERS];
     }
 
-    //asignacion de color en el main
-
-
+    public String putTurnColor(Color color){
+        if (!color.isNull()){
+            if (color == color.get(0))
+                return "RED";
+            else
+                return "YELLOW";
+        }
+        return "ERROR";
+    }
 }

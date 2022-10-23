@@ -4,8 +4,8 @@ enum Color {
     Y,
     NULL;
 
-    static Color get(int ordinal){
-        Error error = null; //REVISAR
+    static Color get(int ordinal){//REVISAR
+        Error error = null;
         if(ordinal >= 0 && ordinal < Color.NULL.ordinal())
             return Color.values()[ordinal];
         else {

@@ -31,26 +31,27 @@ import static java.lang.String.valueOf;
 public class Board {
     private final int nRow = 6; //fila
     private final int nColumn = 7; //columna
-    private final int MAX_TOKEN = 42;
     private char board[][];
     private String color;
 
-    public Board() {
-        this.board = new char[nRow][nColumn];
+    public Board() {this.board = new char[nRow][nColumn];}
+
+    public char[][] getBoard() {
+        return board;
     }
 
     //set Token tienen turn.changeTurn()
     public void initBoard() {
         for (int i = 0; i < nRow; i++) {
             for (int j = 0; j < nColumn; j++)
-                board[i][j] = '|';
+                board[i][j] = ' ';
         }
     }
 
     public void showBoard() {
         for (int i = 0; i < nRow; i++) {
             for (int j = 0; j < nColumn; j++)
-                System.out.print(board[i][j] + "\t");
+                System.out.print("|" + board[i][j] + "\t");
             System.out.print("\n");
         }
     }
@@ -58,7 +59,7 @@ public class Board {
     public boolean isEmpty(int columnInput) {
         if (columnInput >= 1 && columnInput <= 7) {
             for (int i = 0; i < nRow; i++) {
-                    if (board[i][columnInput] == ' ')
+                    if (board[i][columnInput] == '|')
                         return true;
             }
         }
@@ -75,11 +76,19 @@ public class Board {
         return -1;
     }
 
-    public void putToken(int column) {
+    public void putToken(Color color, int column) {
+        Player player = new Player();
         do {
             int freeRow = freeGap(column);
-            this.board[freeRow][column] = 'R'; //decidir si inserta r o y
+            this.board[freeRow][column] = colorOnBoard(player, color); //decidir si inserta r o y
         }while(!fullBoard());
+    }
+
+    public char colorOnBoard(Player player, Color color){
+        if (player.getColor(color) == color.get(0))
+            return 'R';
+        else
+            return 'Y';
     }
 
     public boolean fullBoard(){
