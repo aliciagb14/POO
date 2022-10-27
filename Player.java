@@ -3,6 +3,7 @@ import usantatecla.utils.*;
 import java.util.Scanner;
 
 public class Player {
+    
     private Color color;
     private Board board;
     private int countTokens;
@@ -20,19 +21,18 @@ public class Player {
         assert(countTokens < board.getDimension());
        do{
             error = this.getPutTokenError(column);
-        }while(error != null);
-        board.putToken(this.color, turn, column);
+        }while(!error.isNull());
+        board.putToken(color, turn, column); //board . no me coge el tablero q quiero
         countTokens++;
     }
 
     public Error getPutTokenError(int column){
-        Error error = null;
+        Error error;
         if (!board.isEmpty(column))
-            error = error.COLUMN_NOT_EMPTY;
-        else if(column < 1 && column > 7) {
-            error = error.FAILED_NUMBER_COLUMN_INSERTION;
-            error.writeln();
-        }
+            error = Error.COLUMN_NOT_EMPTY;
+        else if(column < 1 && column > 7){
+            error = Error.FAILED_NUMBER_COLUMN_INSERTION;}
+        rror.writeln();
         return error;
     }
 

@@ -29,12 +29,12 @@ public class PruebaConnect4 {
             if (tRed.putTurnColor(c1) == "RED"){
                 System.out.println("Turn: " + tRed.putTurnColor(c1));
                 p1.putToken(tRed, columnInput);
-                b1.changeTurn(p1, c1, tRed, columnInput);
+                b1.changeTurn(c1, tRed, columnInput);
             }
             else{
                 System.out.println("Turn: " + tYellow.putTurnColor(c2));
                 p2.putToken(tYellow, columnInput);
-                b1.changeTurn(p2, c2, tYellow, columnInput);
+                b1.changeTurn(c2, tYellow, columnInput);
             }
             b1.showBoard();
         }

@@ -92,7 +92,7 @@ public class Board {
         return true;
     }
 
-    public void changeTurn(Player player, Color color, Turn turn, int column){
+    public void changeTurn(Color color, Turn turn, int column){
         boolean encontrado = false;
         int fichasMAX = MAX_TOKEN;
         do {
