@@ -9,7 +9,6 @@ public class Turn {
     public Turn(Board board, Color color){
         this.board = board;
         this.color = color;
-       // this.players = new Player[Turn.NUMBER_PLAYERS];
     }
 
     public String putTurnColor(Color color){

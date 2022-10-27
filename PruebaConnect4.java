@@ -7,23 +7,38 @@ public class PruebaConnect4 {
         b1.initBoard();
         Player p1 = new Player();
         Player p2 = new Player();
+
         Color c1 = p1.getColor(Color.get(0));
         Color c2 = p2.getColor(Color.get(1));
-        Color cNull = p2.getColor(Color.get(3));
+        //Color cNull = p2.getColor(Color.get(3));
         Turn tRed = new Turn(b1, c1);
         Turn tYellow = new Turn(b1, c2);
-        System.out.println("El color del j1 es " + c1 + " y el de j2 " + c2);
+      //  System.out.println("El color del j1 es " + c1 + " y el de j2 " + c2);
 
         Console console = new Console();
         console.writeln(Message.TITLE.toString());
         console.writeln(Message.HORIZONTAL_LINE.toString());
         b1.showBoard();
         console.writeln(Message.HORIZONTAL_LINE.toString());
-        System.out.println("Turn: " + tRed.putTurnColor(c1));
+
       //  System.out.println("Turn j2 es " + tYellow.putTurnColor(c2));
        // System.out.println("Turn j1 es " + tYellow.putTurnColor(cNull));
         int columnInput = console.readInt(Message.ENTER_COLUMN_TO_PUT.toString());
-        p1.putToken(columnInput);
-        b1.showBoard();
+      //  p1.putToken(columnInput);
+      //  b1.showBoard();
+
+        for (int i = 0; i < b1.getDimension(); i++) {//&& !b1.fullBoard()
+            if (tRed.putTurnColor(c1) == "RED"){
+                System.out.println("Turn: " + tRed.putTurnColor(c1));
+                p1.putToken(tRed, columnInput);
+                b1.changeTurn(p1, c1, tRed, columnInput);
+            }
+            else{
+                System.out.println("Turn: " + tYellow.putTurnColor(c2));
+                p2.putToken(tYellow, columnInput);
+                b1.changeTurn(p2, c2, tYellow, columnInput);
+            }
+            b1.showBoard();
+        }
     }
 }

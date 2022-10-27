@@ -31,16 +31,17 @@ import static java.lang.String.valueOf;
 public class Board {
     private final int nRow = 6; //fila
     private final int nColumn = 7; //columna
+    private final int MAX_TOKEN = 42;
     private char board[][];
+    private Player player;
     private String color;
 
-    public Board() {this.board = new char[nRow][nColumn];}
+    public Board() { board = new char[nRow][nColumn];}
 
     public char[][] getBoard() {
         return board;
     }
 
-    //set Token tienen turn.changeTurn()
     public void initBoard() {
         for (int i = 0; i < nRow; i++) {
             for (int j = 0; j < nColumn; j++)
@@ -51,22 +52,17 @@ public class Board {
     public void showBoard() {
         for (int i = 0; i < nRow; i++) {
             for (int j = 0; j < nColumn; j++)
-                System.out.print("|" + board[i][j] + "\t");
-            System.out.print("\n");
+                System.out.print("|" + board[i][j]);
+            System.out.print("\t\n");
         }
     }
 
     public boolean isEmpty(int columnInput) {
-        if (columnInput >= 1 && columnInput <= 7) {
-            for (int i = 0; i < nRow; i++) {
-                    if (board[i][columnInput] == '|')
-                        return true;
-            }
-        }
+        if (board[nRow - 1][columnInput] == ' ')
+                return true;
         return false;
     }
 
-    //hueco libre en fila para saber donde meter la ficha
     public int freeGap(int column){
         int j = 1;
         for (int i = nRow - j; j < nRow ; j++){
@@ -76,26 +72,37 @@ public class Board {
         return -1;
     }
 
-    public void putToken(Color color, int column) {
-        Player player = new Player();
+    public void putToken(Color color, Turn turn, int column) {
         do {
             int freeRow = freeGap(column);
-            this.board[freeRow][column] = colorOnBoard(player, color); //decidir si inserta r o y
+            board[freeRow][column] = colorOnBoard(turn, color);
         }while(!fullBoard());
     }
 
-    public char colorOnBoard(Player player, Color color){
-        if (player.getColor(color) == color.get(0))
+    public char colorOnBoard(Turn turn, Color color){
+        if (player.getColor(color) == color.get(0) && turn.putTurnColor(color) == "RED")
             return 'R';
         else
             return 'Y';
     }
 
     public boolean fullBoard(){
-        for (int j = 0; j < nColumn; j++){
-            if (board[nRow][j] == ' ')
-                return false;
-        }
+        if (board[nRow - 1][nColumn - 1] == ' ')
+            return false;
         return true;
     }
+
+    public void changeTurn(Player player, Color color, Turn turn, int column){
+        boolean encontrado = false;
+        do {
+            if (MAX_TOKEN % 2 == 0)
+                player.getColor(Color.get(0));
+            else
+                player.getColor(Color.get(1));
+            putToken(color, turn, column);
+            encontrado = true;
+        } while (encontrado == false);
+    }
+
+    public int getDimension(){return MAX_TOKEN;}
 }

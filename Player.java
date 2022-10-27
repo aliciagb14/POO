@@ -19,24 +19,26 @@ public class Player {
         this.players = new Player[NUMBER_PLAYERS];
     }
 
-    public void putToken(int column){
+    public void putToken(Turn turn, int column){
         Error error;
-        assert(countTokens < MAX_TOKEN);
-        do{
+        //assert(countTokens < MAX_TOKEN);
+       do{
             error = this.getPutTokenError(column);
-        }while(!error.isNull());
-        board.putToken(this.color, column);
+        }while(error != null);
+        board.putToken(this.color, turn, column);
         countTokens++;
     }
 
     public Error getPutTokenError(int column){
-       Error error = null;
-        if (!board.isEmpty(column)){
+        Board board = new Board();
+        Error error = null;
+    /*    if (!board.isEmpty(column))
             error = error.COLUMN_NOT_EMPTY;
-        }
-        else if(column < 1 && column > 7)
+        else if(column < 1 && column > 7)*/
+        if(column < 1 && column > 7) {
             error = error.FAILED_NUMBER_COLUMN_INSERTION;
-        error.writeln();
+            error.writeln();
+        }
         return error;
     }
 
