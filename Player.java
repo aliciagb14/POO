@@ -5,9 +5,6 @@ import java.util.Scanner;
 public class Player {
     private Color color;
     private Board board;
-    static final int NUMBER_PLAYERS = 2;
-    private Player[] players;
-    private final int MAX_TOKEN = 42;
     private int countTokens;
 
     public Player(){}
@@ -16,12 +13,11 @@ public class Player {
         this.color = color;
         this.board = board;
         this.countTokens = 0;
-        this.players = new Player[NUMBER_PLAYERS];
     }
 
     public void putToken(Turn turn, int column){
         Error error;
-        //assert(countTokens < MAX_TOKEN);
+        assert(countTokens < board.getDimension());
        do{
             error = this.getPutTokenError(column);
         }while(error != null);
@@ -30,12 +26,10 @@ public class Player {
     }
 
     public Error getPutTokenError(int column){
-        Board board = new Board();
         Error error = null;
-    /*    if (!board.isEmpty(column))
+        if (!board.isEmpty(column))
             error = error.COLUMN_NOT_EMPTY;
-        else if(column < 1 && column > 7)*/
-        if(column < 1 && column > 7) {
+        else if(column < 1 && column > 7) {
             error = error.FAILED_NUMBER_COLUMN_INSERTION;
             error.writeln();
         }

@@ -94,13 +94,15 @@ public class Board {
 
     public void changeTurn(Player player, Color color, Turn turn, int column){
         boolean encontrado = false;
+        int fichasMAX = MAX_TOKEN;
         do {
-            if (MAX_TOKEN % 2 == 0)
+            if (fichasMAX % 2 == 0)
                 player.getColor(Color.get(0));
             else
                 player.getColor(Color.get(1));
             putToken(color, turn, column);
             encontrado = true;
+            fichasMAX--;
         } while (encontrado == false);
     }
 

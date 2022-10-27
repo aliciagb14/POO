@@ -24,10 +24,8 @@ public class PruebaConnect4 {
       //  System.out.println("Turn j2 es " + tYellow.putTurnColor(c2));
        // System.out.println("Turn j1 es " + tYellow.putTurnColor(cNull));
         int columnInput = console.readInt(Message.ENTER_COLUMN_TO_PUT.toString());
-      //  p1.putToken(columnInput);
-      //  b1.showBoard();
 
-        for (int i = 0; i < b1.getDimension(); i++) {//&& !b1.fullBoard()
+        for (int i = 0; i < b1.getDimension() && !b1.fullBoard(); i++) {
             if (tRed.putTurnColor(c1) == "RED"){
                 System.out.println("Turn: " + tRed.putTurnColor(c1));
                 p1.putToken(tRed, columnInput);
