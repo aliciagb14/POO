@@ -22,7 +22,8 @@ public class Player {
        do{
             error = this.getPutTokenError(board, column);
         }while(!error.isNull());
-        this.board.putToken(color, column); //board . no me coge el tablero q quiero
+       if (Color.R == getColor(color))
+            this.board.putToken(color, column);
         countTokens++;
     }
 

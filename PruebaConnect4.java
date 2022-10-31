@@ -21,8 +21,8 @@ public class PruebaConnect4 {
         console.writeln(Message.HORIZONTAL_LINE.toString());
         b1.showBoard();
         console.writeln(Message.HORIZONTAL_LINE.toString());
-
         int columnInput = console.readInt(Message.ENTER_COLUMN_TO_PUT.toString());
+
         for (int i = 0; i < b1.getDimension() && !b1.fullBoard(); i++) {
             if (tRed.putTurnColor(c1) == "RED"){
                 System.out.println("Turn: " + tRed.putTurnColor(c1));

@@ -78,19 +78,12 @@ public class Board {
         do {
             int freeRow = freeGap(column);
             if (turn.putTurnColor(color) == "RED")
-                board[freeRow][column] = colorOnBoard(turn, Color.R);
+                board[freeRow][column] = 'R';
             else if (turn.putTurnColor(color) == "YELLOW"){
-                board[freeRow][column] = colorOnBoard(turn, Color.Y);
+                board[freeRow][column] = 'Y';
             }
             encontrado = true;
         }while(encontrado == false);
-    }
-
-    public char colorOnBoard(Turn turn, Color color){
-        if (color == color.get(0) && turn.putTurnColor(color) == "RED")
-            return 'R';
-        else
-            return 'Y';
     }
 
     public boolean fullBoard(){
