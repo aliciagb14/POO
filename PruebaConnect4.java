@@ -5,15 +5,16 @@ public class PruebaConnect4 {
     public static void main(String[] args) {
         Board b1 = new Board();
         b1.initBoard();
-        Player p1 = new Player();
-        Player p2 = new Player();
+        Player[] players;
+        players = new Player[2];
 
-        Color c1 = p1.getColor(Color.get(0));
-        Color c2 = p2.getColor(Color.get(1));
-        //Color cNull = p2.getColor(Color.get(3));
+        Color c1 = Color.R;
+        Color c2 = Color.Y;
+        players[0] = new Player(b1, c1);
+        players[1] = new Player(b1, c2);
+
         Turn tRed = new Turn(b1, c1);
         Turn tYellow = new Turn(b1, c2);
-      //  System.out.println("El color del j1 es " + c1 + " y el de j2 " + c2);
 
         Console console = new Console();
         console.writeln(Message.TITLE.toString());
@@ -21,20 +22,17 @@ public class PruebaConnect4 {
         b1.showBoard();
         console.writeln(Message.HORIZONTAL_LINE.toString());
 
-      //  System.out.println("Turn j2 es " + tYellow.putTurnColor(c2));
-       // System.out.println("Turn j1 es " + tYellow.putTurnColor(cNull));
         int columnInput = console.readInt(Message.ENTER_COLUMN_TO_PUT.toString());
-
         for (int i = 0; i < b1.getDimension() && !b1.fullBoard(); i++) {
             if (tRed.putTurnColor(c1) == "RED"){
                 System.out.println("Turn: " + tRed.putTurnColor(c1));
-                p1.putToken(tRed, columnInput);
-                b1.changeTurn(c1, tRed, columnInput);
+                players[0].putToken(columnInput);
+                tRed.changeTurn(columnInput);
             }
             else{
                 System.out.println("Turn: " + tYellow.putTurnColor(c2));
-                p2.putToken(tYellow, columnInput);
-                b1.changeTurn(c2, tYellow, columnInput);
+                players[1].putToken(columnInput);
+                tYellow.changeTurn(columnInput);
             }
             b1.showBoard();
         }

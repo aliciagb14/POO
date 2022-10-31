@@ -33,8 +33,10 @@ public class Board {
     private final int nColumn = 7; //columna
     private final int MAX_TOKEN = 42;
     private char board[][];
-    private Player player;
+    private Player[] players;
     private String color;
+    private Turn turn;
+
 
     public Board() { board = new char[nRow][nColumn];}
 
@@ -64,23 +66,28 @@ public class Board {
     }
 
     public int freeGap(int column){
-        int j = 1;
-        for (int i = nRow - j; j < nRow ; j++){
-            if (board[i][column] == ' ' && board[i - 1][column] != ' ')
+        for (int i = nRow - 1; i > 0 ; i--){
+            if (board[i][column] == ' ')
                 return i;
         }
         return -1;
     }
 
-    public void putToken(Color color, Turn turn, int column) {
+    public void putToken(Color color, int column) {
+        boolean encontrado;
         do {
             int freeRow = freeGap(column);
-            board[freeRow][column] = colorOnBoard(turn, color);
-        }while(!fullBoard());
+            if (turn.putTurnColor(color) == "RED")
+                board[freeRow][column] = colorOnBoard(turn, Color.R);
+            else if (turn.putTurnColor(color) == "YELLOW"){
+                board[freeRow][column] = colorOnBoard(turn, Color.Y);
+            }
+            encontrado = true;
+        }while(encontrado == false);
     }
 
     public char colorOnBoard(Turn turn, Color color){
-        if (player.getColor(color) == color.get(0) && turn.putTurnColor(color) == "RED")
+        if (color == color.get(0) && turn.putTurnColor(color) == "RED")
             return 'R';
         else
             return 'Y';
@@ -90,20 +97,6 @@ public class Board {
         if (board[nRow - 1][nColumn - 1] == ' ')
             return false;
         return true;
-    }
-
-    public void changeTurn(Color color, Turn turn, int column){
-        boolean encontrado = false;
-        int fichasMAX = MAX_TOKEN;
-        do {
-            if (fichasMAX % 2 == 0)
-                player.getColor(Color.get(0));
-            else
-                player.getColor(Color.get(1));
-            putToken(color, turn, column);
-            encontrado = true;
-            fichasMAX--;
-        } while (encontrado == false);
     }
 
     public int getDimension(){return MAX_TOKEN;}
