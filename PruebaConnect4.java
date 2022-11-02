@@ -3,18 +3,17 @@ import usantatecla.utils.*;
 
 public class PruebaConnect4 {
     public static void main(String[] args) {
+
         Board b1 = new Board();
         b1.initBoard();
-        Player[] players;
-        players = new Player[2];
 
         Color c1 = Color.R;
         Color c2 = Color.Y;
-        players[0] = new Player(b1, c1);
-        players[1] = new Player(b1, c2);
+        Player p1= new Player(b1, c1);
+        Player p2 = new Player(b1, c2);
 
-        Turn tRed = new Turn(b1, c1);
-        Turn tYellow = new Turn(b1, c2);
+        Turn tRed = new Turn(c1, p1);
+        Turn tYellow = new Turn(c2, p2);
 
         Console console = new Console();
         console.writeln(Message.TITLE.toString());
@@ -26,13 +25,13 @@ public class PruebaConnect4 {
         for (int i = 0; i < b1.getDimension() && !b1.fullBoard(); i++) {
             if (tRed.putTurnColor(c1) == "RED"){
                 System.out.println("Turn: " + tRed.putTurnColor(c1));
-                players[0].putToken(columnInput);
-                tRed.changeTurn(columnInput);
+                p1.putToken(tRed, columnInput);
+                p1.changeTurn(tRed, columnInput);
             }
             else{
                 System.out.println("Turn: " + tYellow.putTurnColor(c2));
-                players[1].putToken(columnInput);
-                tYellow.changeTurn(columnInput);
+                p2.putToken(tYellow, columnInput);
+                p2.changeTurn(tYellow, columnInput);
             }
             b1.showBoard();
         }

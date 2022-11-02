@@ -33,12 +33,16 @@ public class Board {
     private final int nColumn = 7; //columna
     private final int MAX_TOKEN = 42;
     private char board[][];
-    private Player[] players;
+    private Player player;
+    //private Player[] players;
     private String color;
     private Turn turn;
+   // private int turn;
 
-
-    public Board() { board = new char[nRow][nColumn];}
+    public Board() {
+        board = new char[nRow][nColumn];
+        this.player = player;
+    }
 
     public char[][] getBoard() {
         return board;
@@ -61,7 +65,7 @@ public class Board {
 
     public boolean isEmpty(int columnInput) {
         if (board[nRow - 1][columnInput] == ' ')
-                return true;
+            return true;
         return false;
     }
 
@@ -73,15 +77,14 @@ public class Board {
         return -1;
     }
 
-    public void putToken(Color color, int column) {
+    public void putToken(Turn turn, Color color, int column) {
         boolean encontrado;
         do {
             int freeRow = freeGap(column);
-            if (turn.putTurnColor(color) == "RED")
+            if (player.changeTurn(turn, column) == 0)
                 board[freeRow][column] = 'R';
-            else if (turn.putTurnColor(color) == "YELLOW"){
+            else
                 board[freeRow][column] = 'Y';
-            }
             encontrado = true;
         }while(encontrado == false);
     }
@@ -93,4 +96,5 @@ public class Board {
     }
 
     public int getDimension(){return MAX_TOKEN;}
+
 }

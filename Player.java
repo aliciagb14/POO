@@ -16,14 +16,14 @@ public class Player {
         this.countTokens = 0;
     }
 
-    public void putToken(int column){ //Board
+    public void putToken(Turn turn, int column){ //Board
         Error error;
         assert(this.countTokens < board.getDimension());
-       do{
+      // do{
             error = this.getPutTokenError(board, column);
-        }while(!error.isNull());
+       // }while(!error.isNull());
        if (Color.R == getColor(color))
-            this.board.putToken(color, column);
+            this.board.putToken(turn, color, column);
         countTokens++;
     }
 
@@ -31,7 +31,7 @@ public class Player {
         Error error = Error.NULL;
         if (!board.isEmpty(column))
             error = Error.COLUMN_NOT_EMPTY;
-        else if(column < 1 && column > 7){
+        else if(column < 1 || column > 7){
             error = Error.FAILED_NUMBER_COLUMN_INSERTION;}
         error.writeln();
         return error;
@@ -43,6 +43,19 @@ public class Player {
 
     public Color getColor(Color color){
         return color;
+    }
+
+    public int changeTurn(Turn turn, int column){
+        int turnActual;
+        boolean encontrado = false;
+        int fichasMAX = board.getDimension();
+        if (fichasMAX % 2 == 0)
+            turnActual = 0;
+        else
+            turnActual = 1;
+        putToken(turn, column);
+        fichasMAX--;
+        return turnActual;
     }
 
 }

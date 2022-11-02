@@ -4,11 +4,14 @@ public class Turn {
     private Board board;
     private Color color;
     static final int NUMBER_PLAYERS = 2;
-    private Player[] players;
+    private Player player;
+    //private Player[] players;
 
-    public Turn(Board board, Color color){
-        this.board = board;
-        this.players = new Player[NUMBER_PLAYERS];
+    public Turn(Color color, Player player){
+        this.player = player;
+      /*  this.players = new Player[NUMBER_PLAYERS];
+        this.players[0] = player1;
+        this.players[1] = player2;*/
         this.color = color;
     }
 
@@ -22,20 +25,4 @@ public class Turn {
         return "ERROR";
     }
 
-    public void changeTurn(int column){
-        boolean encontrado = false;
-        int fichasMAX = board.getDimension();
-        do {
-            if (fichasMAX % 2 == 0) {
-                this.players[0].getColor(Color.get(0));
-                players[0].putToken(column);
-            }
-            else {
-                this.players[1].getColor(Color.get(1));
-                players[1].putToken(column);
-            }
-            encontrado = true;
-            fichasMAX--;
-        } while (encontrado == false);
-    }
 }
