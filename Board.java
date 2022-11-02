@@ -34,14 +34,11 @@ public class Board {
     private final int MAX_TOKEN = 42;
     private char board[][];
     private Player player;
-    //private Player[] players;
-    private String color;
+    private Color color;
     private Turn turn;
-   // private int turn;
 
     public Board() {
         board = new char[nRow][nColumn];
-        this.player = player;
     }
 
     public char[][] getBoard() {
@@ -77,24 +74,31 @@ public class Board {
         return -1;
     }
 
-    public void putToken(Turn turn, Color color, int column) {
-        boolean encontrado;
-        do {
-            int freeRow = freeGap(column);
-            if (player.changeTurn(turn, column) == 0)
-                board[freeRow][column] = 'R';
-            else
-                board[freeRow][column] = 'Y';
-            encontrado = true;
-        }while(encontrado == false);
+    public void putToken(Color color, int column) {
+        int freeRow = freeGap(column);
+        if (color == Color.R)
+            board[freeRow][column] = 'R';
+        else
+            board[freeRow][column] = 'Y';
     }
 
     public boolean fullBoard(){
-        if (board[nRow - 1][nColumn - 1] == ' ')
-            return false;
-        return true;
+        boolean isFull = true;
+        for (int i = 0; i < nColumn; i++) {
+            if (board[nRow - 1][i] == ' ')
+                isFull = false;
+        }
+        return isFull;
     }
 
     public int getDimension(){return MAX_TOKEN;}
+
+    public void showInterface(){
+        Console console = new Console();
+        console.writeln(Message.TITLE.toString());
+        console.writeln(Message.HORIZONTAL_LINE.toString());
+        this.showBoard();
+        console.writeln(Message.HORIZONTAL_LINE.toString());
+    }
 
 }

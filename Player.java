@@ -6,7 +6,10 @@ public class Player {
 
     private Color color;
     private Board board;
+    private Turn turn;
     private int countTokens;
+
+    public Player(){}
 
     public Player(Board board, Color color){
         assert  board != null;
@@ -16,23 +19,24 @@ public class Player {
         this.countTokens = 0;
     }
 
-    public void putToken(Turn turn, int column){ //Board
-        Error error;
+    public void putToken(int column){
+        Error error = getPutTokenError(this.board, column);
         assert(this.countTokens < board.getDimension());
-      // do{
-            error = this.getPutTokenError(board, column);
-       // }while(!error.isNull());
-       if (Color.R == getColor(color))
-            this.board.putToken(turn, color, column);
-        countTokens++;
+
+        if (error == Error.NULL) {
+            this.board.putToken(color, column - 1);
+            countTokens++;
+        }
     }
 
     public Error getPutTokenError(Board board, int column){
         Error error = Error.NULL;
-        if (!board.isEmpty(column))
+
+        if (column < 0 || column > 7) {
+            error = Error.FAILED_NUMBER_COLUMN_INSERTION;
+        }
+       else if (board.freeGap(column - 1) == -1)
             error = Error.COLUMN_NOT_EMPTY;
-        else if(column < 1 || column > 7){
-            error = Error.FAILED_NUMBER_COLUMN_INSERTION;}
         error.writeln();
         return error;
     }
@@ -41,21 +45,12 @@ public class Player {
         return turn;
     }
 
-    public Color getColor(Color color){
+    public Color getColor(){
         return color;
     }
 
-    public int changeTurn(Turn turn, int column){
-        int turnActual;
-        boolean encontrado = false;
-        int fichasMAX = board.getDimension();
-        if (fichasMAX % 2 == 0)
-            turnActual = 0;
-        else
-            turnActual = 1;
-        putToken(turn, column);
-        fichasMAX--;
-        return turnActual;
+    public void setColor(Color color)
+    {
+        this.color = color;
     }
-
 }
