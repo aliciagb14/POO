@@ -15,6 +15,12 @@ public enum Message {
         this.message = message;
     }
 
+	public void writeln(String player) {
+		assert this == Message.PLAYER_WIN;
+		
+		Console.getInstance().writeln(this.message.replaceAll("#player", "" + player));
+	}
+
     @Override
     public String toString() {
         return message;

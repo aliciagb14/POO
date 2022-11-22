@@ -1,45 +1,13 @@
 import usantatecla.utils.*;
 
-import static java.lang.String.valueOf;
-
-/*
- * 21 fichas cada jugador
- * fichas RED, YELLOW
- * Cada posición viene determinada por un valor de fila y columna.
- * Inicialmente, el tablero se encuentra vacío.
-
-
- * Jugada = situar una ficha dentro de una posición del tablero que realiza un jugador en su turno.
- * Una vez realizada la jugada, se cambia el turno de juego.
- * El objetivo de un jugador es conectar 4 fichas del mismo color en  horizontal, vertical o diagonal en cualquier dirección.
-  *El primer jugador que logre este resultado ganará la partida.
-
-  *En el caso de que las 42 fichas hayan sido utilizadas y ningún jugador haya logrado su meta = empate.
-
- * Tablero vertical,inserción de fichas: en una columna y caerán hasta la fila más baja que no esté ocupada.
- * En cada turno, el jugador elige la  columna donde quiere poner su ficha, pero no la fila.
- * Si la columna tiene 6 fichas, columna LLENA, no deja insertar
- * Jugadores sin fichas y sin ganador = empate
-
- * Varios modos:
- *   “Básico” 2 jugadores humanos que interactúan con el programa según el turno de juego.
- *   “Entrenamiento”, tiene que permitir jugar contra  la máquina, 1 humano y 1 máquina.
- *   “Demo” tiene que permitir que los dos jugadores sean controlados por la máquina sin intervención humana.
- *  Se pueden deshacer los últimos movimientos realizados y volver a hacer los movimientos
- * que se habían deshecho (patrón undo/redo).
- */
 public class Board {
-    private final int nRow = 6; //fila
-    private final int nColumn = 7; //columna
+    private final int nRow = 6;
+    private final int nColumn = 7;
     private final int MAX_TOKEN = 42;
+    private final int TOKEN_WINNER = 4;
     private char board[][];
-    private Player player;
-    private Color color;
-    private Turn turn;
 
-    public Board() {
-        board = new char[nRow][nColumn];
-    }
+    public Board() {board = new char[nRow][nColumn];}
 
     public char[][] getBoard() {
         return board;
@@ -56,6 +24,7 @@ public class Board {
         for (int i = 0; i < nRow; i++) {
             for (int j = 0; j < nColumn; j++)
                 System.out.print("|" + board[i][j]);
+            System.out.print("|");
             System.out.print("\t\n");
         }
     }
@@ -66,8 +35,8 @@ public class Board {
         return false;
     }
 
-    public int freeGap(int column){
-        for (int i = nRow - 1; i > 0 ; i--){
+    public int freeGap(int column) {
+        for (int i = nRow - 1; i >= 0; i--) {
             if (board[i][column] == ' ')
                 return i;
         }
@@ -82,7 +51,7 @@ public class Board {
             board[freeRow][column] = 'Y';
     }
 
-    public boolean fullBoard(){
+    public boolean fullBoard() {
         boolean isFull = true;
         for (int i = 0; i < nColumn; i++) {
             if (board[nRow - 1][i] == ' ')
@@ -99,6 +68,74 @@ public class Board {
         console.writeln(Message.HORIZONTAL_LINE.toString());
         this.showBoard();
         console.writeln(Message.HORIZONTAL_LINE.toString());
+    }
+
+    public boolean isWinner(Player player) {
+        boolean encontrado = false;
+        if (countHorizontal(0) == TOKEN_WINNER || countVertical(0) == TOKEN_WINNER
+                        || countDiagonal(0) == TOKEN_WINNER){
+                    encontrado = true;
+                    player.writeWinner();
+        }
+        return encontrado;
+    }
+
+    public int countVertical(int countTokenWinner){
+        for (int i = 0; i < nRow; i++) {
+            for (int j = 0; j < nColumn; j++) {
+                if (board[i][j] == board[i + 1][j] && countTokenWinner < 4)
+                    countTokenWinner++;
+            }
+        }
+        System.out.println("El numero de fichas vertical es " + countTokenWinner);
+        return countTokenWinner;
+    }
+
+    public int countHorizontal(int countTokenWinner){
+        for (int i = 0; i < nRow; i++) {
+            for (int j = 0; j < nColumn; j++) {
+                if (board[i][j] == board[i][j + 1])
+                    countTokenWinner++;
+            }
+        }
+        System.out.println("El numero de fichas hroizontal es " + countTokenWinner);
+        return countTokenWinner;
+    }
+
+    public int countDiagonal(int countTokenWinner){
+        for (int i = 0; i < nRow; i++) {
+            for (int j = 0; j < nColumn; j++) {
+                if (i == j) {
+                    countTokenWinner++;
+                } else {
+                    countTokenWinner = 0;
+                }
+
+                if (i + j == board.length - 1)
+                    countTokenWinner++;
+                else {
+                    countTokenWinner = 0;
+                }
+            }
+            System.out.println("El numero de fichas diagonales es " + countTokenWinner);
+        }
+        return countTokenWinner;
+    }
+
+    public boolean isConnect4(Color color){
+        assert !color.isNull();
+        for (int i = 0; i < nRow; i++){
+            for (int j = 0; j < nColumn; j++) {
+                if (board[i][j] != board[i + 1][j])
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    public int getColumn(){
+        Console console = new Console();
+        return console.readInt(Message.ENTER_COLUMN_TO_PUT.toString());
     }
 
 }

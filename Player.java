@@ -6,18 +6,22 @@ public class Player {
 
     private Color color;
     private Board board;
-    private Turn turn;
+    //private Turn turn;
     private int countTokens;
 
-    public Player(){}
-
     public Player(Board board, Color color){
-        assert  board != null;
+        assert board != null;
 
         this.board = board;
         this.color = color;
         this.countTokens = 0;
     }
+
+	public void play() {
+        int column = board.getColumn();
+		if (this.countTokens < board.getDimension())
+			this.putToken(column);
+	}
 
     public void putToken(int column){
         Error error = getPutTokenError(this.board, column);
@@ -48,6 +52,13 @@ public class Player {
     public Color getColor(){
         return color;
     }
+
+
+    public int getCountTokens(){ return countTokens;}
+
+	public void writeWinner() {
+		Message.PLAYER_WIN.writeln(this.color.name());
+	}
 
     public void setColor(Color color)
     {
