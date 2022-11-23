@@ -2,7 +2,7 @@ import usantatecla.utils.*;
 
 public enum Message {
     TITLE("--- CONNECT 4 ---"),
-    HORIZONTAL_LINE("-------------------------"),
+    HORIZONTAL_LINE("---------------"),
     VERTICAL_LINE("|"),
     ENTER_COLUMN_TO_PUT("Enter a column to drop a token:"),
     TIED_MESSAGE("TIED!!"),

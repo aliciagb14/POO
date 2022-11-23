@@ -6,7 +6,6 @@ public class Player {
 
     private Color color;
     private Board board;
-    //private Turn turn;
     private int countTokens;
 
     public Player(Board board, Color color){
@@ -19,17 +18,18 @@ public class Player {
 
 	public void play() {
         int column = board.getColumn();
-		if (this.countTokens < board.getDimension())
-			this.putToken(column);
+		if (this.countTokens < Board.MAX_TOKEN) {
+            this.putToken(column);
+        }
 	}
 
     public void putToken(int column){
         Error error = getPutTokenError(this.board, column);
-        assert(this.countTokens < board.getDimension());
+        assert(this.countTokens < Board.MAX_TOKEN);
 
         if (error == Error.NULL) {
             this.board.putToken(color, column - 1);
-            countTokens++;
+            this.countTokens++;
         }
     }
 

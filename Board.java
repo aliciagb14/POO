@@ -3,8 +3,8 @@ import usantatecla.utils.*;
 public class Board {
     private final int nRow = 6;
     private final int nColumn = 7;
-    private final int MAX_TOKEN = 42;
-    private final int TOKEN_WINNER = 4;
+    public static final int MAX_TOKEN = 42;
+    private static final int TOKEN_WINNER = 4;
     private char board[][];
 
     public Board() {board = new char[nRow][nColumn];}
@@ -12,6 +12,7 @@ public class Board {
     public char[][] getBoard() {
         return board;
     }
+
 
     public void initBoard() {
         for (int i = 0; i < nRow; i++) {
@@ -60,8 +61,6 @@ public class Board {
         return isFull;
     }
 
-    public int getDimension(){return MAX_TOKEN;}
-
     public void showInterface(){
         Console console = new Console();
         console.writeln(Message.TITLE.toString());
@@ -70,7 +69,7 @@ public class Board {
         console.writeln(Message.HORIZONTAL_LINE.toString());
     }
 
-    public boolean isWinner(Player player) {
+    /*public boolean isWinner(Player player) {
         boolean encontrado = false;
         if (countHorizontal(0) == TOKEN_WINNER || countVertical(0) == TOKEN_WINNER
                         || countDiagonal(0) == TOKEN_WINNER){
@@ -78,59 +77,56 @@ public class Board {
                     player.writeWinner();
         }
         return encontrado;
-    }
+    }*/
 
     public int countVertical(int countTokenWinner){
-        for (int i = 0; i < nRow; i++) {
-            for (int j = 0; j < nColumn; j++) {
+        for (int i = 0; i < nRow - 1; i++) {
+            for (int j = 0; j < nColumn - 1; j++) {
                 if (board[i][j] == board[i + 1][j] && countTokenWinner < 4)
                     countTokenWinner++;
+                else
+                    countTokenWinner = 0;
             }
         }
-        System.out.println("El numero de fichas vertical es " + countTokenWinner);
         return countTokenWinner;
     }
 
     public int countHorizontal(int countTokenWinner){
-        for (int i = 0; i < nRow; i++) {
-            for (int j = 0; j < nColumn; j++) {
-                if (board[i][j] == board[i][j + 1])
+        for (int i = 0; i < nRow -1; i++) {
+            for (int j = 0; j < nColumn-1; j++) {
+                if (board[i][j] == board[i][j + 1] && countTokenWinner < TOKEN_WINNER)
                     countTokenWinner++;
+                else
+                    countTokenWinner = 0;
             }
         }
-        System.out.println("El numero de fichas hroizontal es " + countTokenWinner);
         return countTokenWinner;
     }
 
     public int countDiagonal(int countTokenWinner){
         for (int i = 0; i < nRow; i++) {
-            for (int j = 0; j < nColumn; j++) {
-                if (i == j) {
+            for (int j = 0; j < nColumn ; j++) {
+                if (i == j)
                     countTokenWinner++;
-                } else {
+                else
                     countTokenWinner = 0;
-                }
-
-                if (i + j == board.length - 1)
+                if (i + j == nRow - 1)
                     countTokenWinner++;
-                else {
+                else
                     countTokenWinner = 0;
-                }
             }
-            System.out.println("El numero de fichas diagonales es " + countTokenWinner);
         }
         return countTokenWinner;
     }
 
-    public boolean isConnect4(Color color){
+    public boolean isConnect4(Color color, Player player){
         assert !color.isNull();
-        for (int i = 0; i < nRow; i++){
-            for (int j = 0; j < nColumn; j++) {
-                if (board[i][j] != board[i + 1][j])
-                    return false;
-            }
+        if (countHorizontal(0) == TOKEN_WINNER || countVertical(0) == TOKEN_WINNER
+                || countDiagonal(0) == TOKEN_WINNER){
+            player.writeWinner();
+            return true;
         }
-        return true;
+        return false;
     }
 
     public int getColumn(){

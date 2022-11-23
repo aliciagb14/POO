@@ -5,38 +5,36 @@ public class Connect4{
 	private Board board;
 	private Turn turn;
 	private Player[] player;
-	private final int NUM_PLAYER = 2;
 
 
 	public Connect4(){
 		this.board = new Board();
 		this.turn = new Turn(this.board);
-		player = new Player[NUM_PLAYER];
+		player = new Player[Turn.NUMBER_PLAYERS];
 		turn.reset();
 	}
 
 	private void playGame() {
-		//Error error = player.getPutTokenError(this.board, board.getColumn());
+		//Error error = this.player[turn.getActivePlayer()].getPutTokenError(this.board, board.getColumn());
 		board.initBoard();
 		board.showInterface();
 		do {
 			this.turn.play();
-			//if (error == Error.NULL)
-			 	turn.changeColor();
+			/*if (error == Error.NULL)
+			 	turn.changeColor();*/
 			board.showInterface();
 		} while (!this.isConnect4());
-
-		/*else if (isTie())
-			Message.TIED_MESSAGE.toString();*/
 	}
 
-	/*public boolean isTie(){
-		return (board.fullBoard() || player.getCountTokens() == MAX_TOKEN) ? true : false;
-	}*/
+	public boolean isTie(){
+		return (board.fullBoard() || this.player[turn.getActivePlayer()].getCountTokens() == Board.MAX_TOKEN);
+	}
 
 	private boolean isConnect4() {
-		//return this.board.isConnect4(this.turn.getActiveColor());
-		return this.board.isConnect4(this.turn.getActiveColor());
+		if(!board.isConnect4(this.turn.getActiveColor(), this.player[this.turn.getActivePlayer()])){
+			return isTie();
+		}
+		return false;
 	}
 
 	public static void main(String[] args) {
