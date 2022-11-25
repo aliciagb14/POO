@@ -4,34 +4,35 @@ import usantatecla.utils.*;
 public class Connect4{
 	private Board board;
 	private Turn turn;
-	private Player[] player;
+	private Player[] players;
 
 
 	public Connect4(){
 		this.board = new Board();
-		this.turn = new Turn(this.board);
-		player = new Player[Turn.NUMBER_PLAYERS];
+		this.players = new Player[Turn.NUMBER_PLAYERS];
+		this.turn = new Turn(this.board, this.players);
 		turn.reset();
 	}
 
 	private void playGame() {
-		//Error error = this.player[turn.getActivePlayer()].getPutTokenError(this.board, board.getColumn());
+		Error error = this.players[turn.getActivePlayer()].getPutTokenError(this.board, board.getColumn());
 		board.initBoard();
 		board.showInterface();
 		do {
 			this.turn.play();
-			/*if (error == Error.NULL)
-			 	turn.changeColor();*/
+			if (error == Error.NULL)
+				this.turn.changeColor();
 			board.showInterface();
 		} while (!this.isConnect4());
 	}
 
 	public boolean isTie(){
-		return (board.fullBoard() || this.player[turn.getActivePlayer()].getCountTokens() == Board.MAX_TOKEN);
+		Message.TIED_MESSAGE.toString();
+		return (board.fullBoard());
 	}
 
 	private boolean isConnect4() {
-		if(!board.isConnect4(this.turn.getActiveColor(), this.player[this.turn.getActivePlayer()])){
+		if(!board.isWinner(this.turn.getActiveColor(), this.players[this.turn.getActivePlayer()], this.turn)){
 			return isTie();
 		}
 		return false;

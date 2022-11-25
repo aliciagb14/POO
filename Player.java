@@ -7,6 +7,8 @@ public class Player {
     private Color color;
     private Board board;
     private int countTokens;
+    private int column;
+    private int row;
 
     public Player(Board board, Color color){
         assert board != null;
@@ -28,7 +30,7 @@ public class Player {
         assert(this.countTokens < Board.MAX_TOKEN);
 
         if (error == Error.NULL) {
-            this.board.putToken(color, column - 1);
+            this.row = this.board.putToken(color, column - 1);
             this.countTokens++;
         }
     }
@@ -44,17 +46,18 @@ public class Player {
         error.writeln();
         return error;
     }
-
-    public int getTurn(int turn){
+/*
+    public int getTurn(){
         return turn;
-    }
+    }*/
+
+    public int getColumn(){ return this.column;}
+
+    public int getRow(){ return this.row;}
 
     public Color getColor(){
         return color;
     }
-
-
-    public int getCountTokens(){ return countTokens;}
 
 	public void writeWinner() {
 		Message.PLAYER_WIN.writeln(this.color.name());

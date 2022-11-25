@@ -7,9 +7,9 @@ public class Turn {
     private Player[] players;
 	private int activePlayer;
 
-    public Turn(Board board){
+    public Turn(Board board, Player[] player){
 		this.board = board;
-    	this.players = new Player[Turn.NUMBER_PLAYERS];
+    	this.players = player;
         this.color = Color.R;
     }
 
@@ -36,9 +36,8 @@ public class Turn {
 
 	public void play(){
 		this.players[this.activePlayer].play();
-		if (!this.board.isConnect4(this.getActiveColor(), players[this.activePlayer])){
+		if (!this.board.isWinner(this.getActiveColor(), players[this.activePlayer], this)){
 			this.activePlayer = (this.activePlayer + 1) % Turn.NUMBER_PLAYERS;
-			changeColor();
 		}
 	}
 
