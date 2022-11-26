@@ -4,9 +4,8 @@ public class Board {
     private final int nRow = 6;
     private final int nColumn = 7;
     public static final int MAX_TOKEN = 42;
-    private static final int TOKEN_WINNER = 4;
+    public static final int TOKEN_WINNER = 4;
     private char board[][];
-    private int countTokenWinner;
 
     public Board() {board = new char[nRow][nColumn];}
 
@@ -71,59 +70,77 @@ public class Board {
         console.writeln(Message.HORIZONTAL_LINE.toString());
     }
 
-    public int countVertical(){
-        int countTokenWinner = 0;
-        for (int i = 0; i < nRow - 1; i++) {
-            for (int j = 0; j < nColumn - 1; j++) {
-                if (board[i][j] == board[i + 1][j] && countTokenWinner < TOKEN_WINNER - 1)
-                    countTokenWinner++;
+    public int countVertical(Turn turn, int column, char color){
+        int countToken = 1;//0
+        for (int i = 0; i < nRow - 1; i++) { //|| countToken <= TOKEN_WINNER
+           if (board[i][column] != ' ') {
+                if (/*turn.getColor().equals(board[i][column])
+                        && turn.getColor().equals(board[i + 1][column])*/
+                        board[i][column] == color
+                        && board[i + 1][column] == color) // board[i + 1][column] && turn.getActiveColor() == Color.R
+                    countToken++;
+                else
+                    countToken = 0;
             }
         }
-       return  countTokenWinner;
+        System.out.println("Cont token vert" + countToken);
+        return countToken;
     }
 
-    public int countHorizontal(int x){
-        int countTokenWinner = 0;
-        for (int j = 0; j < nRow - 1; j++) {
-            if (board[x][j] == board[x][j + 1] && countTokenWinner < TOKEN_WINNER)
-                countTokenWinner++;
-            else
-                countTokenWinner = 0;
+    public int countHorizontal(char color){
+        int countTokenWinner = 1;
+        for (int i = 0; i < nRow - 1; i++){
+            for (int j = 0; j < nColumn - 1; j++) {
+                if (board[i][j] != ' ') {
+                    if (board[i][j + 1] == color
+                            && board[i][j] == color) //&& countTokenWinner < TOKEN_WINNER
+                        countTokenWinner++;
+                    else
+                        countTokenWinner = 0;
+                }
             }
+        }
+        System.out.println("cont horizontal " + countTokenWinner);
         return countTokenWinner;
     }
 
-    public int countDiagonal(Turn turn){
+    public int countDiagonal(Turn turn, char color){
         int countTokenWinner = 0;
-        for (int i = 3; i < nColumn; i++){
+        for (int i = 3; i < nColumn - 1; i++){
             for (int j = 0; j < nRow - 3; j++){
-                if (turn.getColor().equals(this.board[i][j])
-                        && turn.getColor().equals(this.board[i-1][j+1])
-                        && turn.getColor().equals(this.board[i-2][j+2])
-                        && turn.getColor().equals(this.board[i-3][j+3]))
-                    countTokenWinner = 4;
+                if (board[i][j] != ' ') {
+                    if (board[i][j] == color
+                        && board[i - 1][j + 1] == color
+                        && board[i - 2][j + 2] == color
+                        && board[i - 3][j + 3] == color) {
+                        countTokenWinner = 4;
+                    }
+                }
             }
         }
         // descendingDiagonalCheck
-        for (int i = 3; i < nColumn; i++){
-            for (int j = 3; j < nRow; j++){
-                if (turn.getColor().equals(this.board[i][j])
-                        && turn.getColor().equals(this.board[i-1][j-1])
-                        && turn.getColor().equals(this.board[i-2][j-2])
-                        && turn.getColor().equals(this.board[i-3][j-3]))
-                    countTokenWinner = 4;
+        for (int i = 3; i < nColumn - 1; i++){
+            for (int j = 3; j < nRow - 1; j++){
+                if (board[i][j] != ' ') {
+                    if (board[i][j] == color
+                            && board[i - 1][j - 1] == color
+                            && board[i - 2][j - 2] == color
+                            && board[i - 3][j - 3] == color) {
+                        countTokenWinner = 4;
+                    }
+                }
             }
         }
+        System.out.println("count diagonal " + countTokenWinner);
         return countTokenWinner;
     }
 
     public boolean isWinner(Color color, Player player, Turn turn){
         assert !color.isNull();
-        if (/*countHorizontal(player.getRow()) == TOKEN_WINNER || */countVertical() == TOKEN_WINNER
-                /*|| countDiagonal(turn) == TOKEN_WINNER*/){
-            System.out.println("count token horizont: " + countHorizontal(player.getRow())
-                + "\ncount token vert: " + countVertical() + "\n");
-            player.writeWinner();
+        if (countVertical(turn, player.getColumn(), turn.getColorToken()) == TOKEN_WINNER
+               ||countHorizontal(turn.getColorToken()) == TOKEN_WINNER
+               || countDiagonal(turn, turn.getColorToken()) == TOKEN_WINNER){
+            player.writeWinner(turn);
             return true;
         }
         return false;

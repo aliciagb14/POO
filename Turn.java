@@ -10,7 +10,7 @@ public class Turn {
     public Turn(Board board, Player[] player){
 		this.board = board;
     	this.players = player;
-        this.color = Color.R;
+		this.color = Color.R;
     }
 
     public void changeColor(){
@@ -19,6 +19,13 @@ public class Turn {
         else
             color = Color.R;
     }
+
+	public char getColorToken(){
+		if (color == Color.R)
+			return 'R';
+		else
+			return 'Y';
+	}
 
     public String getColor(){
         if (color == Color.R)
@@ -43,9 +50,7 @@ public class Turn {
 
 	public int getActivePlayer(){ return activePlayer;}
 
-	public void writeWinner(){
-		this.players[this.activePlayer].writeWinner();
-	}
+	public void writeWinner(){ this.players[this.activePlayer].writeWinner(this);}
 
 	public Color getActiveColor() {
 		return this.players[this.activePlayer].getColor();

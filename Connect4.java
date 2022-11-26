@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import usantatecla.utils.*;
+import usantatecla.utils.YesNoDialog;
 
 public class Connect4{
 	private Board board;
@@ -15,15 +16,18 @@ public class Connect4{
 	}
 
 	private void playGame() {
-		Error error = this.players[turn.getActivePlayer()].getPutTokenError(this.board, board.getColumn());
-		board.initBoard();
-		board.showInterface();
 		do {
-			this.turn.play();
-			if (error == Error.NULL)
-				this.turn.changeColor();
+			Error error = this.players[turn.getActivePlayer()].getPutTokenError(this.board, board.getColumn());
+			board.initBoard();
 			board.showInterface();
-		} while (!this.isConnect4());
+			do {
+				System.out.println("Turn " + turn.getActiveColor());
+				this.turn.play();
+				if (error == Error.NULL)
+					this.turn.changeColor();
+				board.showInterface();
+			} while (!this.isConnect4());
+		} while(!board.isWinner(this.turn.getActiveColor(), this.players[this.turn.getActivePlayer()], this.turn));
 	}
 
 	public boolean isTie(){
@@ -38,7 +42,23 @@ public class Connect4{
 		return false;
 	}
 
+	private boolean isResumedGame() {
+		YesNoDialog yesNoDialog = new YesNoDialog();
+		yesNoDialog.read(Message.CONTINUE_MESSAGE.toString());
+		if (yesNoDialog.isAffirmative()) {
+			this.board.initBoard();
+			this.turn.reset();
+		}
+		return yesNoDialog.isAffirmative();
+	}
+
+	private void start(){
+		do {
+			this.playGame();
+		} while(this.isResumedGame());
+	}
+
 	public static void main(String[] args) {
-		new Connect4().playGame();
+		new Connect4().start();
 	}
 }

@@ -20,7 +20,7 @@ public class Player {
 
 	public void play() {
         int column = board.getColumn();
-		if (this.countTokens < Board.MAX_TOKEN) {
+        if (this.countTokens < Board.MAX_TOKEN/*this.countTokens < Board.MAX_TOKEN*/) {
             this.putToken(column);
         }
 	}
@@ -46,25 +46,14 @@ public class Player {
         error.writeln();
         return error;
     }
-/*
-    public int getTurn(){
-        return turn;
-    }*/
 
     public int getColumn(){ return this.column;}
 
     public int getRow(){ return this.row;}
 
-    public Color getColor(){
-        return color;
-    }
+    public Color getColor(){ return color;}
 
-	public void writeWinner() {
-		Message.PLAYER_WIN.writeln(this.color.name());
-	}
+	public void writeWinner(Turn turn) { Message.PLAYER_WIN.writeln(turn.getColor());}
 
-    public void setColor(Color color)
-    {
-        this.color = color;
-    }
+    public void setColor(Color color) {this.color = color;}
 }
