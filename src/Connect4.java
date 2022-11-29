@@ -6,10 +6,12 @@ public class Connect4{
     private Board board;
     private Turn turn;
     private Player[] players;
+    private Victory victory;
 
 
     public Connect4(){
         this.board = new Board();
+        this.victory = new Victory();
         this.players = new Player[Turn.NUMBER_PLAYERS];
         this.turn = new Turn(this.board, this.players);
         turn.reset();
@@ -30,7 +32,7 @@ public class Connect4{
     private boolean isConnect4() {
         String response;
         Console console = new Console();
-        if(!board.isWinner(this.turn.getActiveColor(), this.players[this.turn.getActivePlayer()], this.turn)){
+        if(!victory.isWinner(this.board,this.turn.getActiveColor(),this.turn)){
             if(board.isEmpty())
                 Message.TIED_MESSAGE.toString();
         }
