@@ -18,12 +18,12 @@ public class Player {
         this.countTokens = 0;
     }
 
-	public void play() {
+    public void play() {
         int column = board.getColumn();
-        if (this.countTokens < Board.MAX_TOKEN) {
+        if (this.countTokens < Board.MAX_TOKEN/*this.countTokens < Board.MAX_TOKEN*/) {
             this.putToken(column);
         }
-	}
+    }
 
     public void putToken(int column){
         Error error = getPutTokenError(this.board, column);
@@ -41,7 +41,7 @@ public class Player {
         if (column <= 0 || column > 7) {
             error = Error.FAILED_NUMBER_COLUMN_INSERTION;
         }
-       else if (board.freeGap(column - 1) == -1)
+        else if (board.freeGap(column - 1) == -1)
             error = Error.COLUMN_NOT_EMPTY;
         error.writeln();
         return error;
@@ -53,7 +53,7 @@ public class Player {
 
     public Color getColor(){ return color;}
 
-	public void writeWinner(Turn turn) { Message.PLAYER_WIN.writeln(turn.getColor());}
+    public void writeWinner(Turn turn) { Message.PLAYER_WIN.writeln(turn.getColor());}
 
     public void setColor(Color color) {this.color = color;}
 }

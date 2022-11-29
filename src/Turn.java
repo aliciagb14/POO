@@ -3,14 +3,12 @@ public class Turn {
     private Color color;
     static final int NUMBER_PLAYERS = 2;
     private Player[] players;
-	private int activePlayer;
-	private Victory victory;
+    private int activePlayer;
 
-    public Turn(Board board, Player[] player, Victory victory){
-		this.board = board;
-    	this.players = player;
-		this.color = Color.R;
-		this.victory = victory;
+    public Turn(Board board, Player[] player){
+        this.board = board;
+        this.players = player;
+        this.color = Color.R;
     }
 
     public void changeColor(){
@@ -20,12 +18,12 @@ public class Turn {
             color = Color.R;
     }
 
-	public char getColorToken(Color color){
-		if (color == Color.R)
-			return 'R';
-		else
-			return 'Y';
-	}
+    public char getColorToken(Color color){
+        if (color == Color.R)
+            return 'R';
+        else
+            return 'Y';
+    }
 
     public String getColor(){
         if (color == Color.R)
@@ -34,25 +32,25 @@ public class Turn {
             return "YELLOW";
     }
 
-	public void reset() {
-		for (int i = 0; i < NUMBER_PLAYERS; i++) {
-			this.players[i] = new Player(this.board, Color.get(i));
-		}
-		this.activePlayer = 0;
-	}
+    public void reset() {
+        for (int i = 0; i < NUMBER_PLAYERS; i++) {
+            this.players[i] = new Player(this.board, Color.get(i));
+        }
+        this.activePlayer = 0;
+    }
 
-	public void play(){
-		this.players[this.activePlayer].play();
-		if (!this.victory.isWinner(this.board, this.getActiveColor(), this)){
-			this.activePlayer = (this.activePlayer + 1) % Turn.NUMBER_PLAYERS;
-		}
-	}
+    public void play(){
+        this.players[this.activePlayer].play();
+        if (!this.board.isWinner(this.getActiveColor(), players[this.activePlayer], this)){
+            this.activePlayer = (this.activePlayer + 1) % Turn.NUMBER_PLAYERS;
+        }
+    }
 
-	public int getActivePlayer(){ return activePlayer;}
+    public int getActivePlayer(){ return activePlayer;}
 
-	public void writeWinner(){ this.players[this.activePlayer].writeWinner(this);}
+    public void writeWinner(){ this.players[this.activePlayer].writeWinner(this);}
 
-	public Color getActiveColor() {
-		return this.players[this.activePlayer].getColor();
-	}
+    public Color getActiveColor() {
+        return this.players[this.activePlayer].getColor();
+    }
 }
