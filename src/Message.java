@@ -1,9 +1,13 @@
 import usantatecla.utils.*;
 
 public enum Message {
-    TITLE("--- CONNECT 4 ---"),
+    TITLE("---- CONNECT 4 ----"),
     HORIZONTAL_LINE("---------------"),
     VERTICAL_LINE("|"),
+    MODE("Select the mode of the game: "),
+    BASIC_MODE("Basic mode "),
+    TRAINING_MODE("Training mode "),
+    DEMO_MODE("Demo mode "),
     ENTER_COLUMN_TO_PUT("Enter a column to drop a token:"),
     TIED_MESSAGE("TIED!!"),
     PLAYER_WIN("#player player: You win!!! :-)"),
@@ -15,11 +19,11 @@ public enum Message {
         this.message = message;
     }
 
-    public void writeln(String player) {
-        assert this == Message.PLAYER_WIN;
-
-        Console.getInstance().writeln(this.message.replaceAll("#player", "" + player));
-    }
+	public void writeln(String player) {
+		assert this == Message.PLAYER_WIN;
+		
+		Console.getInstance().writeln(this.message.replaceAll("#player", "" + player));
+	}
 
     @Override
     public String toString() {

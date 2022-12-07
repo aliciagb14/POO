@@ -4,7 +4,6 @@ enum Color {
     Y,
     NULL;
 
-
     static Color get(int ordinal){
         assert (ordinal >= 0 && ordinal < Color.NULL.ordinal());
         return Color.values()[ordinal];
@@ -13,5 +12,5 @@ enum Color {
     boolean isNull() {
         return this == Color.NULL;
     }
-
+//
 }

@@ -1,7 +1,5 @@
 import usantatecla.utils.*;
 
-import java.util.Scanner;
-
 public class Board {
     public static final int nRow = 6;
     public static final int nColumn = 7;
@@ -32,8 +30,8 @@ public class Board {
         }
     }
 
-    public boolean isEmpty() {
-        if (board[nRow - 1][nColumn-1] == ' ')
+    public boolean isEmpty(int columnInput) {
+        if (board[nRow - 1][columnInput] == ' ')
             return true;
         return false;
     }
@@ -72,22 +70,9 @@ public class Board {
         console.writeln(Message.HORIZONTAL_LINE.toString());
     }
 
-     public int getColumn(){
+    public int getColumn(){
         Console console = new Console();
         return console.readInt(Message.ENTER_COLUMN_TO_PUT.toString());
     }
-
-    /*
-    public int getColumn(){
-        Scanner teclado = new Scanner(System.in);
-
-        int num_random=(int)(Math.random()*(0-7+1)+7);
-
-        System.out.print("Enter a column to drop a token: ");
-        System.out.println(num_random);
-        return num_random;
-    }
-
-     */
-
+//
 }
