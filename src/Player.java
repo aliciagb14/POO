@@ -6,10 +6,8 @@ public class Player {
 
     private Color color;
     private Board board;
-    private Machine machine;
     private int countTokens;
     private int column;
-    private Player player;
     private int row;
 
     public Player(Board board, Color color){
@@ -17,24 +15,23 @@ public class Player {
 
         this.board = board;
         this.color = color;
-        this.machine = (Machine) player; //HAY QUE VER COMO HACERLO
         this.countTokens = 0;
     }
 
-	public void play(int opcion) {
+	public void play(Connect4 game, int opcion) {
         if (opcion == 1){
             int column = board.getColumn();
             if (this.countTokens < Board.MAX_TOKEN)
                 this.putToken(column);
         }
-       /* else if (opcion == 2) {
-
-        }*/
-        else /*if (opcion == 3)*/{
-            int column = (int)(Math.random()*(0-7+1)+7);
-            System.out.println("columna random es: " + column);
-            if (this.countTokens < Board.MAX_TOKEN)
-                this.putToken(column);
+        else {
+            do {
+                int column = (int) (Math.random() * (0 - 7 + 1) + 7);
+                System.out.println("La columna random es: " + column);
+                if (this.countTokens < Board.MAX_TOKEN)
+                    this.putToken(column);
+                this.board.showInterface();
+            } while (game.isConnect4());
         }
 	}
 

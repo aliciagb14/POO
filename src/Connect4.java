@@ -1,6 +1,4 @@
-import java.util.Scanner;
 import usantatecla.utils.*;
-import usantatecla.utils.YesNoDialog;
 
 public class Connect4{
 	private Board board;
@@ -24,23 +22,27 @@ public class Connect4{
 		int opcion = menu.chooseMode();
 		do {
 			System.out.println("Turn " + turn.getActiveColor());
-			if (opcion == 1 || opcion == 3) {
-				this.turn.play(opcion);
-				this.turn.changeColor();
-			}
-			else if (opcion == 2) {
-				opcion = 1;
-				this.turn.play(opcion);
-				this.turn.changeColor();
-				opcion = 2;
-				this.turn.play(opcion);
-				this.turn.changeColor();
-			}
+			setOption(opcion);
 			board.showInterface();
 		} while (!this.isConnect4());
 	}
 
-	private boolean isConnect4() {
+	void setOption(int opcion){
+		if (opcion == 1 || opcion == 3) {
+			this.turn.play(this, opcion);
+			this.turn.changeColor();
+		}
+		else if (opcion == 2) {
+			opcion = 1;
+			this.turn.play(this, opcion);
+			this.turn.changeColor();
+			opcion = 2;
+			this.turn.play(this, opcion);
+			this.turn.changeColor();
+		}
+	}
+
+	public boolean isConnect4() {
 		String response;
 		Console console = new Console();
 		if(!victory.isWinner(this.board, this.turn.getActiveColor(), this.turn)){

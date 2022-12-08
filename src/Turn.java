@@ -41,8 +41,8 @@ public class Turn {
 		this.activePlayer = 0;
 	}
 
-	public void play(int opcion){ //cuidado, solo se mete en player.play cuando no haya maquina
-		this.players[this.activePlayer].play(opcion);
+	public void play(Connect4 game, int opcion){ //cuidado, solo se mete en player.play cuando no haya maquina
+		this.players[this.activePlayer].play(game, opcion);
 		if (!this.victory.isWinner(this.board, this.getActiveColor(), this)){
 			this.activePlayer = (this.activePlayer + 1) % Turn.NUMBER_PLAYERS;
 		}
