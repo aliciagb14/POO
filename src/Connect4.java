@@ -24,8 +24,18 @@ public class Connect4{
 		int opcion = menu.chooseMode();
 		do {
 			System.out.println("Turn " + turn.getActiveColor());
-			this.turn.play(opcion);
-			this.turn.changeColor();
+			if (opcion == 1 || opcion == 3) {
+				this.turn.play(opcion);
+				this.turn.changeColor();
+			}
+			else if (opcion == 2) {
+				opcion = 1;
+				this.turn.play(opcion);
+				this.turn.changeColor();
+				opcion = 2;
+				this.turn.play(opcion);
+				this.turn.changeColor();
+			}
 			board.showInterface();
 		} while (!this.isConnect4());
 	}

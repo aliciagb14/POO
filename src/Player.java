@@ -27,7 +27,10 @@ public class Player {
             if (this.countTokens < Board.MAX_TOKEN)
                 this.putToken(column);
         }
-        else {
+       /* else if (opcion == 2) {
+
+        }*/
+        else /*if (opcion == 3)*/{
             int column = (int)(Math.random()*(0-7+1)+7);
             System.out.println("columna random es: " + column);
             if (this.countTokens < Board.MAX_TOKEN)
