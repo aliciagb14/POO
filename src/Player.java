@@ -2,7 +2,7 @@ import usantatecla.utils.*;
 
 import java.util.Scanner;
 
-public class Player {
+public class Player implements IPlayer{
 
     private Color color;
     private Board board;
@@ -30,7 +30,6 @@ public class Player {
                 System.out.println("La columna random es: " + column);
                 if (this.countTokens < Board.MAX_TOKEN)
                     this.putToken(column);
-                this.board.showInterface();
             } while (game.isConnect4());
         }
 	}
@@ -45,7 +44,7 @@ public class Player {
         }
     }
 
-    public Error getPutTokenError(Board board, int column){
+    protected Error getPutTokenError(Board board, int column){
         Error error = Error.NULL;
 
         if (column <= 0 || column > 7) {

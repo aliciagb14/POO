@@ -18,7 +18,6 @@ public class Connect4{
 
 	void playGame() {
 		board.initBoard();
-		board.showInterface();
 		int opcion = menu.chooseMode();
 		do {
 			System.out.println("Turn " + turn.getActiveColor());
@@ -36,6 +35,7 @@ public class Connect4{
 			opcion = 1;
 			this.turn.play(this, opcion);
 			this.turn.changeColor();
+			board.showInterface();
 			opcion = 2;
 			this.turn.play(this, opcion);
 			this.turn.changeColor();

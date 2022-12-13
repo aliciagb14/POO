@@ -13,7 +13,6 @@ public class Board {
         return board;
     }
 
-
     public void initBoard() {
         for (int i = 0; i < nRow; i++) {
             for (int j = 0; j < nColumn; j++)

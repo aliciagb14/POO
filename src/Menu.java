@@ -12,7 +12,7 @@ public class Menu {
 
     public int chooseMode(){
         Console console = new Console();
-        Machine machine = new Machine(board, color);
+        MachinePlayer machine = new MachinePlayer(board, color);
         boolean out = false;
         int opcion;
 
@@ -27,7 +27,6 @@ public class Menu {
                     break;
                 case 2:
                     System.out.println(Message.TRAINING_MODE.toString() + "select");
-                    machine.putTokenRandom(machine.getColumn());
                     break;
                 case 3:
                     System.out.println(Message.DEMO_MODE.toString() + "select");
