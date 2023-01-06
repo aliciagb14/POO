@@ -11,7 +11,9 @@ public enum Message {
     ENTER_COLUMN_TO_PUT("Enter a column to drop a token:"),
     TIED_MESSAGE("TIED!!"),
     PLAYER_WIN("#player player: You win!!! :-)"),
-    CONTINUE_MESSAGE("Do you want to continue? (yes/no):");
+    CONTINUE_MESSAGE("Do you want to continue? (yes/no):"),
+    UNDO("Do you want make undo/redo? (undo/no): "),
+    REDO("Do you want make undo/redo? (redo/no): ");
 
     private String message;
 

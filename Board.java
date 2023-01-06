@@ -6,6 +6,7 @@ public class Board {
     public static final int MAX_TOKEN = 42;
     public static final int TOKEN_WINNER = 4;
     private char board[][];
+    private int lastColumn;
 
     public Board() {board = new char[nRow][nColumn];}
 
@@ -45,6 +46,7 @@ public class Board {
 
     public int putToken(Color color, int column) {
         int freeRow = freeGap(column);
+        lastColumn = column;
         if (color == Color.R)
             board[freeRow][column] = 'R';
         else
@@ -70,8 +72,21 @@ public class Board {
     }
 
     public int getColumn(){
+
         Console console = new Console();
         return console.readInt(Message.ENTER_COLUMN_TO_PUT.toString());
     }
-//
+
+    public void deleteToken(int column){
+        for (int i = 0; i < nRow; i++){
+            if (board[i][column] != ' ') {
+                board[i][column] = ' ';
+                return ;
+            }
+        }
+    }
+
+    public int getLastColumn() {
+        return lastColumn;
+    }
 }

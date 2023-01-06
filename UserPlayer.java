@@ -1,5 +1,6 @@
 import exceptions.ExColumnFull;
 import exceptions.ExNumberColumn;
+import usantatecla.utils.Console;
 
 public class UserPlayer extends Player{
     public UserPlayer(Board board, Color color){
@@ -12,5 +13,4 @@ public class UserPlayer extends Player{
         error.writeln();
         return error;
     }
-
 }
