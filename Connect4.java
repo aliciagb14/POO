@@ -24,17 +24,27 @@ public class Connect4{
 		this.gestor = new GestorComandos(turn.getActiveColor(), turn);
 	}
 
+	/**
+	 * se llaman a distintos métodos que iran desarrollando
+	 * la partida mientras que no haya un ganador
+	 */
+
 	void playGame() throws ExNumberColumn, ExColumnFull {
 		board.initBoard();
 		int opcion = menu.chooseMode();
 		gestor.getInstance(turn.getActiveColor(), turn);
 		do {
 			setOption(opcion);
-			System.out.println("Turn " + turn.getActiveColor());
 			board.showInterface();
 			applyUndoRedo();
+			System.out.println("\nTurn " + turn.getActiveColor());
 		} while (!this.isConnect4());
 	}
+
+	/**
+	 * aplicará el patrón undo/redo en cada caso
+	 * que el usuario le indique
+	 */
 
 	void applyUndoRedo(){
 		Color color = turn.getActiveColor();
@@ -53,13 +63,20 @@ public class Connect4{
 				board.showInterface();
 			}
 		}
-		/*else if (response.equalsIgnoreCase("redo")){
+		else if (response.equalsIgnoreCase("redo")){
 			Color c = gestor.redo();
 			if (c != Color.NULL)
 				board.putToken(c, board.getLastColumn());
 			board.showInterface();
-		}*/
+		}
 	}
+
+	/**
+	 * servirá como conexion entre los modos de juego y las funciones de cada uno
+	 * @param opcion - recibirá el modo de juego
+	 * @throws ExNumberColumn
+	 * @throws ExColumnFull
+	 */
 
 	void setOption(int opcion) throws ExNumberColumn, ExColumnFull {
 		if (opcion == 1 || opcion == 3) {
@@ -80,6 +97,13 @@ public class Connect4{
 			System.exit(0);
 	}
 
+	/**
+	 * nos permitira saber si hay ganador
+	 * @return - retornará un booleano para cada caso
+	 * @throws ExNumberColumn
+	 * @throws ExColumnFull
+	 */
+
 	public boolean isConnect4() throws ExNumberColumn, ExColumnFull {
 		String response;
 		Console console = new Console();
@@ -98,9 +122,22 @@ public class Connect4{
 		return false;
 	}
 
+	/**
+	 * nos permitirá iniciar la partida
+	 * @throws ExNumberColumn
+	 * @throws ExColumnFull
+	 */
+
 	private void start() throws ExNumberColumn, ExColumnFull {
 		this.playGame();
 	}
+
+	/**
+	 * donde empieza todo, método principal que inicia el programa
+	 * @param args
+	 * @throws ExNumberColumn
+	 * @throws ExColumnFull
+	 */
 
 	public static void main(String[] args) throws ExNumberColumn, ExColumnFull {
 		new Connect4().start();

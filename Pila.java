@@ -3,6 +3,11 @@
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * nos permitirá la creacion de la pila para poder usar el patrón undo/redo
+ * @param <Color>
+ */
+
 public class Pila<Color> {
     private Color Color;
     private List<Color> lista;

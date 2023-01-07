@@ -4,11 +4,18 @@ public class Menu {
     private Connect4 game;
     private Board board;
     private Color color;
+
+
     public Menu(Connect4 game, Board board, Color color){
         this.board = board;
         this.color = color;
         this.game = game;
     }
+
+    /**
+     * Menú para mostrar los modos de juego que tiene nuestro programa
+     * @return - nos devolverá la opción elegida
+     */
 
     public int chooseMode(){
         Console console = new Console();

@@ -16,6 +16,10 @@ public class Turn {
 		this.victory = victory;
     }
 
+	/**
+	 * nos permitirá el cambio del color para cada turno
+	 */
+
     public void changeColor(){
         if (color == Color.R)
             color = Color.Y;
@@ -23,12 +27,23 @@ public class Turn {
             color = Color.R;
     }
 
+	/**
+	 * nos permitirá saber el turno según el color
+	 * @param color - recibirá el color
+	 * @return - nos dira que turno es el que corresponde
+	 */
+
 	public char getColorToken(Color color){
 		if (color == Color.R)
 			return 'R';
 		else
 			return 'Y';
 	}
+
+	/**
+	 * nos permitira saber el nombre de la ficha
+	 * @return - nos devolvera el valor del color
+	 */
 
     public String getColor(){
         if (color == Color.R)

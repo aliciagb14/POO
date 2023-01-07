@@ -1,7 +1,13 @@
 import usantatecla.utils.*;
 
+/**
+ * clase que nos permitirá controlar los mensajes que mostraremos por pantalla
+ * para que el usuario vaya desarrollando el juego siguiendo las indicaciones y sobretodo
+ * para saber si ha ganado la partida
+ */
+
 public enum Message {
-    TITLE("---- CONNECT 4 ----"),
+    TITLE("\n---- CONNECT 4 ----"),
     HORIZONTAL_LINE("---------------"),
     VERTICAL_LINE("|"),
     MODE("Select the mode of the game: "),

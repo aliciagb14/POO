@@ -19,6 +19,14 @@ public class Player implements IPlayer{
         this.countTokens = 0;
     }
 
+    /**
+     * nos permitirá desarrollar según la opción elegida un tipo de modo de juego
+     * @param game -
+     * @param opcion - la opcion elegida
+     * @throws ExNumberColumn
+     * @throws ExColumnFull
+     */
+
 	public void play(Connect4 game, int opcion) throws ExNumberColumn, ExColumnFull {
         if (opcion == 1){
             int column = board.getColumn();
@@ -27,13 +35,20 @@ public class Player implements IPlayer{
         }
         else {
             do {
-                int column = (int) (Math.random() * (0 - 7 + 1) + 7);
+                int column = (int) (Math.random() * 7 + 1);
                 System.out.println("La columna random es: " + column);
                 if (this.countTokens < Board.MAX_TOKEN)
                     this.putToken(column);
             } while (game.isConnect4());
         }
 	}
+
+    /**
+     * nos permitirá poner ficha donde le indiquemos
+     * @param column - le pasaremos la posicion donde queremos meter la ficha
+     * @throws ExNumberColumn
+     * @throws ExColumnFull
+     */
 
     public void putToken(int column) throws ExNumberColumn, ExColumnFull {
         Error error = getPutTokenError(this.board, column);
@@ -44,6 +59,15 @@ public class Player implements IPlayer{
             this.countTokens++;
         }
     }
+
+    /**
+     * controlaremos los errores a la hora de meter la ficha
+     * @param board
+     * @param column
+     * @return - devolveremos el error en cualquier caso
+     * @throws ExNumberColumn
+     * @throws ExColumnFull
+     */
 
     protected Error getPutTokenError(Board board, int column) throws ExNumberColumn, ExColumnFull {
         Error error = Error.NULL;

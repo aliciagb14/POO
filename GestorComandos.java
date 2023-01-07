@@ -12,6 +12,12 @@ public class GestorComandos {
     private List<String> historiadecomandos;
     private int lastColumn;
 
+    /**
+     * Gestiona las pilas que contendrá cada accion de nuestro patrón
+     * @param color - recibirá el color
+     * @param turn - recibirá el turno correspondiente
+     */
+
     public GestorComandos(Color color, Turn turn) {
         pilaredo = new Pila<Color>();
         pilaundo = new Pila<Color>();
@@ -28,9 +34,18 @@ public class GestorComandos {
         }
     }
 
+    /**
+     * ejecutara la acción según se lo indiquemos
+     * @param color - recibirá el color que se este usando en ese momento
+     */
+
     public void execute(Color color) {
         pilaundo.apilar(color);
     }
+
+    /**
+     * ejecutará la accion de deshacer
+     */
 
     public void undo() {
         System.out.println("undo fuera");
@@ -41,6 +56,11 @@ public class GestorComandos {
             pilaredo.apilar(color);
        }
     }
+
+    /**
+     * ejecutará la accion de rehacer
+     * @return - nos devolvera el valor la ficha que se ha vuelto a poner
+     */
 
     public Color redo() {
       if (!pilaredo.isVacia()) {
