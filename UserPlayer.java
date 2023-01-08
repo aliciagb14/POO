@@ -8,7 +8,7 @@ public class UserPlayer extends Player{
     }
 
     @Override
-    protected Error getPutTokenError(Board board, int column) throws ExNumberColumn, ExColumnFull {
+    protected Error getPutTokenError(Board board, int column) {
         Error error = super.getPutTokenError(board, column);
         error.writeln();
         return error;

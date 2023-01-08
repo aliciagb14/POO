@@ -2,12 +2,15 @@
 
 public class Comando implements IComando {
     private Comando tokenPlay;
+
     public <Turn> Comando(Turn tokenPlay){
         this.tokenPlay = (Comando) tokenPlay;
     }
+
     public void execute() {
         tokenPlay.undo();
     }
+
     public void undo() {
         tokenPlay.execute();
     }

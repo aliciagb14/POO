@@ -7,7 +7,8 @@ enum Color {
     NULL;
 
     /**
-     * nos permitirá obtener el valor de color
+     * nos permitirá obtener el valor de color siempre y cuando se encuentre
+     * en el rango entre 0 y 2
      * @param ordinal - le pasaremos una posicion
      * @return - nos dira que valor tiene nuestra posicion dada
      */
@@ -18,7 +19,7 @@ enum Color {
     }
 
     /**
-     * booleano para saber si es nula
+     * Booleano que nos ayudará a saber si el color es nulo
      * @return - nos dira si el nulo
      */
 

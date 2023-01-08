@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Multi-file class diagram">
+  <ClassDiagramComponents>
+    <Class name="Board" package="javaapplication1" visibility="public" xPosition="904.0" yPosition="19.0">
+      <Fields>
+        <Field name="nRow" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="nColumn" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="MAX_TOKEN" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="TOKEN_WINNER" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="board" type="char" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getBoard" returnType="char[][]" visibility="public"/>
+        <Method name="initBoard" returnType="void" visibility="public"/>
+        <Method name="showBoard" returnType="void" visibility="public"/>
+        <Method name="isEmpty" returnType="boolean" visibility="public">
+          <Argument type="int" name="columnInput"/>
+        </Method>
+        <Method name="freeGap" returnType="int" visibility="public">
+          <Argument type="int" name="column"/>
+        </Method>
+        <Method name="putToken" returnType="int" visibility="public">
+          <Argument type="Color" name="color"/>
+          <Argument type="int" name="column"/>
+        </Method>
+        <Method name="fullBoard" returnType="boolean" visibility="public"/>
+        <Method name="showInterface" returnType="void" visibility="public"/>
+        <Method name="getColumn" returnType="int" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Connect4" package="javaapplication1" visibility="public" xPosition="1317.0" yPosition="404.0">
+      <Fields>
+        <Field name="board" type="Board" visibility="private"/>
+        <Field name="turn" type="Turn" visibility="private"/>
+        <Field name="players" type="Player[]" visibility="private"/>
+        <Field name="victory" type="Victory" visibility="private"/>
+        <Field name="menu" type="Menu" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="playGame" returnType="void" visibility="package"/>
+        <Method name="setOption" returnType="void" visibility="package">
+          <Argument type="int" name="opcion"/>
+        </Method>
+        <Method name="isConnect4" returnType="boolean" visibility="public"/>
+        <Method name="start" returnType="void" visibility="private"/>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MachinePlayer" package="javaapplication1" visibility="public" xPosition="2181.0" yPosition="919.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Board" name="board"/>
+          <Argument type="Color" name="color"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="putTokenRandom" returnType="void" visibility="public">
+          <Argument type="int" name="column"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Menu" package="javaapplication1" visibility="public" xPosition="113.0" yPosition="461.0">
+      <Fields>
+        <Field name="game" type="Connect4" visibility="private"/>
+        <Field name="board" type="Board" visibility="private"/>
+        <Field name="color" type="Color" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connect4" name="game"/>
+          <Argument type="Board" name="board"/>
+          <Argument type="Color" name="color"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="chooseMode" returnType="int" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Player" package="javaapplication1" visibility="public" xPosition="1337.0" yPosition="1178.0">
+      <Fields>
+        <Field name="color" type="Color" visibility="private"/>
+        <Field name="board" type="Board" visibility="private"/>
+        <Field name="countTokens" type="int" visibility="private"/>
+        <Field name="column" type="int" visibility="private"/>
+        <Field name="row" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Board" name="board"/>
+          <Argument type="Color" name="color"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="play" returnType="void" visibility="public">
+          <Argument type="Connect4" name="game"/>
+          <Argument type="int" name="opcion"/>
+        </Method>
+        <Method name="putToken" returnType="void" visibility="public">
+          <Argument type="int" name="column"/>
+        </Method>
+        <Method name="getPutTokenError" returnType="Error" visibility="protected">
+          <Argument type="Board" name="board"/>
+          <Argument type="int" name="column"/>
+        </Method>
+        <Method name="getColumn" returnType="int" visibility="public"/>
+        <Method name="getRow" returnType="int" visibility="public"/>
+        <Method name="getColor" returnType="Color" visibility="public"/>
+        <Method name="writeWinner" returnType="void" visibility="public">
+          <Argument type="Turn" name="turn"/>
+        </Method>
+        <Method name="setColor" returnType="void" visibility="public">
+          <Argument type="Color" name="color"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Turn" package="javaapplication1" visibility="public" xPosition="2165.0" yPosition="404.0">
+      <Fields>
+        <Field name="board" type="Board" visibility="private"/>
+        <Field name="color" type="Color" visibility="private"/>
+        <Field name="NUMBER_PLAYERS" type="int" visibility="package" isStatic="true" isFinal="true"/>
+        <Field name="players" type="Player[]" visibility="private"/>
+        <Field name="activePlayer" type="int" visibility="private"/>
+        <Field name="victory" type="Victory" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Board" name="board"/>
+          <Argument type="Player[]" name="player"/>
+          <Argument type="Victory" name="victory"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="changeColor" returnType="void" visibility="public"/>
+        <Method name="getColorToken" returnType="char" visibility="public">
+          <Argument type="Color" name="color"/>
+        </Method>
+        <Method name="getColor" returnType="String" visibility="public"/>
+        <Method name="reset" returnType="void" visibility="public"/>
+        <Method name="play" returnType="void" visibility="public">
+          <Argument type="Connect4" name="game"/>
+          <Argument type="int" name="opcion"/>
+        </Method>
+        <Method name="getActivePlayer" returnType="int" visibility="public"/>
+        <Method name="writeWinner" returnType="void" visibility="public"/>
+        <Method name="getActiveColor" returnType="Color" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="UserPlayer" package="javaapplication1" visibility="public" xPosition="2163.0" yPosition="1115.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Board" name="board"/>
+          <Argument type="Color" name="color"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getPutTokenError" returnType="Error" visibility="protected">
+          <Argument type="Board" name="board"/>
+          <Argument type="int" name="column"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Victory" package="javaapplication1" visibility="public" xPosition="1685.0" yPosition="48.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="countVertical" returnType="int" visibility="public">
+          <Argument type="char[][]" name="board"/>
+          <Argument type="char" name="color"/>
+        </Method>
+        <Method name="countHorizontal" returnType="int" visibility="public">
+          <Argument type="char[][]" name="board"/>
+          <Argument type="char" name="color"/>
+        </Method>
+        <Method name="countDiagonal" returnType="int" visibility="public">
+          <Argument type="char[][]" name="board"/>
+          <Argument type="char" name="color"/>
+        </Method>
+        <Method name="isWinner" returnType="boolean" visibility="public">
+          <Argument type="Board" name="board"/>
+          <Argument type="Color" name="color"/>
+          <Argument type="Turn" name="turn"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Interface name="IPlayer" package="javaapplication1" visibility="public" xPosition="456.0" yPosition="1283.0">
+      <Methods>
+        <Method name="play" returnType="void" visibility="package">
+          <Argument type="Connect4" name="game"/>
+          <Argument type="int" name="opcion"/>
+        </Method>
+        <Method name="putToken" returnType="void" visibility="package">
+          <Argument type="int" name="column"/>
+        </Method>
+        <Method name="getColumn" returnType="int" visibility="package"/>
+        <Method name="getRow" returnType="int" visibility="package"/>
+        <Method name="getColor" returnType="Color" visibility="package"/>
+        <Method name="writeWinner" returnType="void" visibility="package">
+          <Argument type="Turn" name="turn"/>
+        </Method>
+        <Method name="setColor" returnType="void" visibility="package">
+          <Argument type="Color" name="color"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Enum name="Color" package="javaapplication1" visibility="public" xPosition="210.0" yPosition="973.0">
+      <Literals>
+        <Literal name="R"/>
+        <Literal name="Y"/>
+        <Literal name="NULL"/>
+      </Literals>
+    </Enum>
+    <Enum name="Error" package="javaapplication1" visibility="public" xPosition="2181.0" yPosition="1374.0">
+      <Literals>
+        <Literal name="COLUMN_NOT_EMPTY"/>
+        <Literal name="FAILED_NUMBER_COLUMN_INSERTION"/>
+        <Literal name="INVALID_COLOR"/>
+        <Literal name="NULL"/>
+      </Literals>
+    </Enum>
+    <Enum name="Message" package="javaapplication1" visibility="public" xPosition="210.0" yPosition="79.0">
+      <Literals>
+        <Literal name="TITLE"/>
+        <Literal name="HORIZONTAL_LINE"/>
+        <Literal name="VERTICAL_LINE"/>
+        <Literal name="MODE"/>
+        <Literal name="BASIC_MODE"/>
+        <Literal name="TRAINING_MODE"/>
+        <Literal name="DEMO_MODE"/>
+        <Literal name="ENTER_COLUMN_TO_PUT"/>
+        <Literal name="TIED_MESSAGE"/>
+        <Literal name="PLAYER_WIN"/>
+        <Literal name="CONTINUE_MESSAGE"/>
+      </Literals>
+    </Enum>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="tiene" source="javaapplication1.Turn" target="javaapplication1.Victory" type="Aggregation" sourceCardinality="0..1" targetCardinality="0..1"/>
+    <HasRelation name="board" source="javaapplication1.Menu" target="javaapplication1.Board" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="board" source="javaapplication1.Connect4" target="javaapplication1.Board" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="board" source="javaapplication1.Turn" target="javaapplication1.Board" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="javaapplication1.Player" target="javaapplication1.Error" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="menu" source="javaapplication1.Connect4" target="javaapplication1.Menu" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="game" source="javaapplication1.Menu" target="javaapplication1.Connect4" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="javaapplication1.Player" target="javaapplication1.IPlayer"/>
+    <IsRelation name="is" source="javaapplication1.UserPlayer" target="javaapplication1.Player"/>
+    <UseRelation source="javaapplication1.Victory" target="javaapplication1.Turn" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="javaapplication1.UserPlayer" target="javaapplication1.Error" sourceCardinality="1..1" targetCardinality="0..*"/>
+    <UseRelation source="javaapplication1.Player" target="javaapplication1.Connect4" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="javaapplication1.Board" target="javaapplication1.Color" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="javaapplication1.IPlayer" target="javaapplication1.Turn" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="javaapplication1.Player" target="javaapplication1.Turn" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="javaapplication1.Player" target="javaapplication1.Color" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="javaapplication1.IPlayer" target="javaapplication1.Color" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="color" source="javaapplication1.Turn" target="javaapplication1.Color" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="victory" source="javaapplication1.Connect4" target="javaapplication1.Victory" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="color" source="javaapplication1.Menu" target="javaapplication1.Color" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="javaapplication1.MachinePlayer" target="javaapplication1.Player"/>
+    <HasRelation name="board" source="javaapplication1.Player" target="javaapplication1.Board" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="javaapplication1.Turn" target="javaapplication1.Color" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="color" source="javaapplication1.Player" target="javaapplication1.Color" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="javaapplication1.Turn" target="javaapplication1.Connect4" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="posee" source="javaapplication1.Connect4" target="javaapplication1.Turn" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <UseRelation source="javaapplication1.IPlayer" target="javaapplication1.Connect4" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

@@ -1,10 +1,6 @@
-//import designPatterns.Comando;
-//import designPatterns.GestorComandos;
-//import designPatterns.IComando;
-import exceptions.ExColumnFull;
-import exceptions.ExNumberColumn;
+
 import usantatecla.utils.*;
-//import designPatterns.GestorComandos;
+
 
 public class Connect4{
 	private Board board;
@@ -20,34 +16,35 @@ public class Connect4{
 		this.players = new Player[Turn.NUMBER_PLAYERS];
 		this.turn = new Turn(this.board, this.players, victory);
 		turn.reset();
-		this.menu = new Menu(this, this.board, this.turn.getActiveColor());
-		this.gestor = new GestorComandos(turn.getActiveColor(), turn);
+		this.menu = new Menu(this, this.board, Color.R); //this.turn.getActiveColor()
+		this.gestor = new GestorComandos(Color.R, turn);
 	}
 
 	/**
-	 * se llaman a distintos métodos que iran desarrollando
-	 * la partida mientras que no haya un ganador
+	 * Nos permite elegir el modo de juego y nos dará la opción de aplicar el patrón undo/redo.
+	 * El UserPlayer será el que podrá deshacer o rehacer un movimiento.
+	 * Siempre indicará a que jugador le toca poner ficha en ese momento
 	 */
 
-	void playGame() throws ExNumberColumn, ExColumnFull {
+	void playGame() {
 		board.initBoard();
 		int opcion = menu.chooseMode();
-		gestor.getInstance(turn.getActiveColor(), turn);
 		do {
 			setOption(opcion);
 			board.showInterface();
-			applyUndoRedo();
-			System.out.println("\nTurn " + turn.getActiveColor());
+			System.out.println("Turn " + turn.getActiveColor());
+			if (opcion == 1)
+				applyUndoRedo();
 		} while (!this.isConnect4());
 	}
 
 	/**
-	 * aplicará el patrón undo/redo en cada caso
-	 * que el usuario le indique
+	 * Aplicará el patrón undo/redo. Primero será necesario que el usuario haga un undo
+	 * que permitirá al jugador deshacer la acción y el redo se podrá hacer inmediatamente después si el
+	 * jugador quisiera rehacer el movimiento.
 	 */
 
 	void applyUndoRedo(){
-		Color color = turn.getActiveColor();
 		String response;
 		Console console = new Console();
 		response = console.readString(Message.UNDO.toString());
@@ -63,34 +60,26 @@ public class Connect4{
 				board.showInterface();
 			}
 		}
-		else if (response.equalsIgnoreCase("redo")){
-			Color c = gestor.redo();
-			if (c != Color.NULL)
-				board.putToken(c, board.getLastColumn());
-			board.showInterface();
-		}
 	}
 
 	/**
-	 * servirá como conexion entre los modos de juego y las funciones de cada uno
+	 * Servirá como conexion entre los modos de juego y las funciones de cada uno
 	 * @param opcion - recibirá el modo de juego
-	 * @throws ExNumberColumn
-	 * @throws ExColumnFull
 	 */
 
-	void setOption(int opcion) throws ExNumberColumn, ExColumnFull {
+	void setOption(int opcion)  {
 		if (opcion == 1 || opcion == 3) {
-			this.turn.play(this, opcion);
-			gestor.execute(turn.getActiveColor());
+			this.turn.play(this, opcion, gestor);
 			this.turn.changeColor();
 		}
 		else if (opcion == 2) {
 			opcion = 1;
-			this.turn.play(this, opcion);
+			this.turn.play(this, opcion, gestor);
 			this.turn.changeColor();
 			board.showInterface();
+			applyUndoRedo();
 			opcion = 2;
-			this.turn.play(this, opcion);
+			this.turn.play(this, opcion, gestor);
 			this.turn.changeColor();
 		}
 		else
@@ -98,13 +87,14 @@ public class Connect4{
 	}
 
 	/**
-	 * nos permitira saber si hay ganador
+	 *  Comprobaremos si se ha encontrado un ganador, si es el caso,
+	 *  dejaremos que el usuario decida si quiere seguir jugando o no.
+	 *  Si no se ha encontrado ganador, comprobará si el tablero está lleno
+	 *  y en ese caso, se producirá un Empate que será notificado con un mensaje.
 	 * @return - retornará un booleano para cada caso
-	 * @throws ExNumberColumn
-	 * @throws ExColumnFull
 	 */
 
-	public boolean isConnect4() throws ExNumberColumn, ExColumnFull {
+	public boolean isConnect4() {
 		String response;
 		Console console = new Console();
 		if(!victory.isWinner(this.board, this.turn.getActiveColor(), this.turn)){
@@ -123,23 +113,19 @@ public class Connect4{
 	}
 
 	/**
-	 * nos permitirá iniciar la partida
-	 * @throws ExNumberColumn
-	 * @throws ExColumnFull
+	 * Nos permitirá iniciar la partida
 	 */
 
-	private void start() throws ExNumberColumn, ExColumnFull {
+	private void start() {
 		this.playGame();
 	}
 
 	/**
-	 * donde empieza todo, método principal que inicia el programa
+	 * Donde empieza todo, método principal que inicia el programa
 	 * @param args
-	 * @throws ExNumberColumn
-	 * @throws ExColumnFull
 	 */
 
-	public static void main(String[] args) throws ExNumberColumn, ExColumnFull {
+	public static void main(String[] args) {
 		new Connect4().start();
 	}
 }

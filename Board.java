@@ -13,7 +13,7 @@ public class Board {
     }
 
     /**
-     * nos permitirá obtener el tablero
+     * Nos permitirá obtener el tablero
      * @return - devuelve el tablero
      */
 
@@ -34,7 +34,7 @@ public class Board {
     }
 
     /**
-     *rellenará cada coordenada del tablero
+     * Rellenará cada coordenada del tablero
      * con una linea vertical
      */
 
@@ -47,6 +47,13 @@ public class Board {
         }
     }
 
+    /**
+     * Nos permitirá saber si en la posición de la columna pasada por parámetro
+     * hay ya una ficha o no
+     * @param columnInput
+     * @return
+     */
+
     public boolean isEmpty(int columnInput) {
         if (board[nRow - 1][columnInput] == ' ')
             return true;
@@ -54,7 +61,8 @@ public class Board {
     }
 
     /**
-     * Nos permitirá saber que nuestra columna está libre
+     * Método que nos devuelve la posición de la fila que se encuentra libre
+     * para saber donde colocar la ficha (según la columna pasada por parámetro)
      * @param column - le pasamos el numero de columna
      * @return - si esta libre devolverá fila libre , si no -1
      */
@@ -68,7 +76,7 @@ public class Board {
     }
 
     /**
-     * Pondra la ficha en cada coordenada
+     * Pondrá la ficha que proceda en cada coordenada
      * @param color - nos dirá el valor de cada ficha
      * @param column - le pasaremos la columna
      * @return - nos devolverá la fila libre
@@ -85,7 +93,7 @@ public class Board {
     }
 
     /**
-     * nos permitirá saber si el tablero esta lleno
+     * Nos permitirá saber si el tablero esta lleno
      * @return - un valor boooleano en cada caso, true si esta lleno, false si no lo está
      */
 
@@ -98,6 +106,10 @@ public class Board {
         return isFull;
     }
 
+    /**
+     * Este método nos mostrará la interfaz que queremos usar en nuestro juego
+     */
+
     public void showInterface(){
         Console console = new Console();
         console.writeln(Message.TITLE.toString());
@@ -107,7 +119,7 @@ public class Board {
     }
 
     /**
-     * nos mostrara por pantalla que ingremos una valor para la columna
+     * Ns pedirá por consola que ingresemos una valor para la columna
      * @return - nos devolvera el valor de la columna
      */
 
@@ -118,20 +130,23 @@ public class Board {
     }
 
     /**
-     * nos permitirá borrar un espacio en la columna indicada
+     * Nos permitirá borrar la ficha del tablero (una vez realizado el undo)
+     * para así poder actualizarlo
      * @param column - le pasamos el valor de la columna
      */
+
     public void deleteToken(int column){
         for (int i = 0; i < nRow; i++){
             if (board[i][column] != ' ') {
                 board[i][column] = ' ';
-                return ;
+                return;
             }
         }
     }
 
     /**
-     * obtendremos la ultima columna
+     * Obtendremos la ultima columna que nos será útil para realizar
+     * las operaciones de undo y redo
      * @return - el valor de la ultima columna
      */
     public int getLastColumn() {

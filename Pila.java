@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * nos permitirá la creacion de la pila para poder usar el patrón undo/redo
+ * Nos permitirá la creacion de la pila para poder usar el patrón undo/redo
  * @param <Color>
  */
 
@@ -21,7 +21,7 @@ public class Pila<Color> {
     public Color desapilar() {
         if (lista.size() > 0) {
             viewList();
-            return lista.remove(lista.size() - 1);
+            return lista.remove(0);
         }
         else
             return null;
@@ -32,7 +32,7 @@ public class Pila<Color> {
     }
 
     public void viewList(){
-        for (int i = 0; i < lista.size(); i++){
+        for (int i = 0; i < lista.size() - 1; i++){
             System.out.println(lista.get(i));
         }
     }

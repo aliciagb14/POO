@@ -1,7 +1,7 @@
 import usantatecla.utils.*;
 
 /**
- * clase que nos permitirá controlar los mensajes que mostraremos por pantalla
+ * Clase que nos permitirá controlar los mensajes que mostraremos por pantalla
  * para que el usuario vaya desarrollando el juego siguiendo las indicaciones y sobretodo
  * para saber si ha ganado la partida
  */
@@ -18,8 +18,8 @@ public enum Message {
     TIED_MESSAGE("TIED!!"),
     PLAYER_WIN("#player player: You win!!! :-)"),
     CONTINUE_MESSAGE("Do you want to continue? (yes/no):"),
-    UNDO("Do you want make undo/redo? (undo/no): "),
-    REDO("Do you want make undo/redo? (redo/no): ");
+    UNDO("Do you want make undo/no? (undo/no): "),
+    REDO("Do you want make redo/no? (redo/no): ");
 
     private String message;
 

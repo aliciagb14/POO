@@ -9,8 +9,6 @@ public class GestorComandos {
     private Turn turn;
     private Pila<Color> pilaundo;
     private Pila<Color> pilaredo;
-    private List<String> historiadecomandos;
-    private int lastColumn;
 
     /**
      * Gestiona las pilas que contendrá cada accion de nuestro patrón
@@ -21,7 +19,6 @@ public class GestorComandos {
     public GestorComandos(Color color, Turn turn) {
         pilaredo = new Pila<Color>();
         pilaundo = new Pila<Color>();
-        historiadecomandos = new ArrayList<>();
         this.turn = turn;
         this.color = Color.R;
     }
@@ -35,7 +32,7 @@ public class GestorComandos {
     }
 
     /**
-     * ejecutara la acción según se lo indiquemos
+     * Añade un elemento al principio de la pila de undo cada vez que depositemos una ficha
      * @param color - recibirá el color que se este usando en ese momento
      */
 
@@ -48,11 +45,8 @@ public class GestorComandos {
      */
 
     public void undo() {
-        System.out.println("undo fuera");
         if (!pilaundo.isVacia()) {
-            System.out.println("undo intentando");
             Color color = pilaundo.desapilar();
-            System.out.println("color desapilado es: " + color);
             pilaredo.apilar(color);
        }
     }
@@ -64,10 +58,9 @@ public class GestorComandos {
 
     public Color redo() {
       if (!pilaredo.isVacia()) {
-          System.out.println("redo intentando");
-            Color color = pilaredo.desapilar();
-            pilaundo.apilar(color);
-            return color;
+          pilaundo.apilar(color);
+          Color color = pilaredo.desapilar();
+          return color;
       }
       return Color.NULL;
     }

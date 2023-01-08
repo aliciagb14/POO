@@ -8,7 +8,7 @@ public class Victory {
      * @return - nos devolvera el total de fichas consecutivas
      */
 
-    public int countVertical(char[][] board, char color){
+    public int countVertical(char[][] board, char color){ //vertical
         int countToken = 0;
         int  maxToken=0;
         for (int j = 0; j <= Board.nColumn - 1; j++) {
@@ -28,12 +28,12 @@ public class Victory {
 
     /**
      * nos permitira saber si hay 4 fichas de manera horizontal consecutivas
-     * @param board - recbirá el tablero
+     * @param board - recibirá el tablero
      * @param color - recibira el valor de la ficha
      * @return - nos dira el total de fichas
      */
 
-    public int countHorizontal(char[][] board, char color){
+    public int countHorizontal(char[][] board, char color){ //columnas
         int countToken = 0;
         int  maxToken=0;
         for (int i = 0; i <= Board.nRow - 1 ; i++){

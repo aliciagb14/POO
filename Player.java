@@ -20,14 +20,12 @@ public class Player implements IPlayer{
     }
 
     /**
-     * nos permitirá desarrollar según la opción elegida un tipo de modo de juego
+     * Nos permitirá desarrollar según la opción elegida un tipo de modo de juego
      * @param game -
      * @param opcion - la opcion elegida
-     * @throws ExNumberColumn
-     * @throws ExColumnFull
      */
 
-	public void play(Connect4 game, int opcion) throws ExNumberColumn, ExColumnFull {
+	public void play(Connect4 game, int opcion) {
         if (opcion == 1){
             int column = board.getColumn();
             if (this.countTokens < Board.MAX_TOKEN)
@@ -44,13 +42,13 @@ public class Player implements IPlayer{
 	}
 
     /**
-     * nos permitirá poner ficha donde le indiquemos
+     * Intenta colocar la ficha en el tablero siempre y cuando no se produzca un error
      * @param column - le pasaremos la posicion donde queremos meter la ficha
      * @throws ExNumberColumn
      * @throws ExColumnFull
      */
 
-    public void putToken(int column) throws ExNumberColumn, ExColumnFull {
+    public void putToken(int column)  {
         Error error = getPutTokenError(this.board, column);
         assert(this.countTokens < Board.MAX_TOKEN);
 
@@ -61,7 +59,7 @@ public class Player implements IPlayer{
     }
 
     /**
-     * controlaremos los errores a la hora de meter la ficha
+     * Controlaremos los errores a la hora de meter la ficha
      * @param board
      * @param column
      * @return - devolveremos el error en cualquier caso
@@ -69,33 +67,19 @@ public class Player implements IPlayer{
      * @throws ExColumnFull
      */
 
-    protected Error getPutTokenError(Board board, int column) throws ExNumberColumn, ExColumnFull {
+    protected Error getPutTokenError(Board board, int column)  {
         Error error = Error.NULL;
-        if (column <= 0 || column > 7){
-            try {
-                error = Error.FAILED_NUMBER_COLUMN_INSERTION;
-            }catch(NullPointerException e) {
-                throw new ExNumberColumn();
-            }
-        }
-        else if (board.freeGap(column - 1) == -1) {
-            try {
-                error = Error.COLUMN_NOT_EMPTY;
-            } catch(NullPointerException e) {
-                throw new ExColumnFull();
-            }
-        }
+        if (column <= 0 || column > 7)
+            error = Error.FAILED_NUMBER_COLUMN_INSERTION;
+        else if (board.freeGap(column - 1) == -1)
+            error = Error.COLUMN_NOT_EMPTY;
         error.writeln();
         return error;
     }
 
     public int getColumn(){ return this.column;}
 
-    public int getRow(){ return this.row;}
-
     public Color getColor(){ return color;}
-
-	public void writeWinner(Turn turn) { Message.PLAYER_WIN.writeln(turn.getColor());}
 
     public void setColor(Color color) {this.color = color;}
 }
